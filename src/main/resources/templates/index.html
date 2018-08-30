@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>eLibrary</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'/'}" class=" btn btn-primary btn-lg">Country List</a>
+    <a th:href="@{'addCountry'}" class=" btn btn-primary btn-lg">Add Country</a>
+    <div class="container">
+        <h4>Books List:</h4>
+        <table class="table table-sm" style="text-align:center" id="bookTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>CountryName</th>
+                <th colspan="3">Actions :</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="country:${countries}">
+                <td th:text="${country.countryName}"/>
+                <td><a th:href="@{'viewCountry'(id=${country.id})}" class=" btn btn-sm btn-success">View country</a>
+                </td>
+                <td><a th:href="@{'editCountries'(id=${country.id})}" class=" btn btn-sm btn-warning">Edit
+                    Country</a></td>
+                <td><a th:href="@{'deleteCountry'(id=${country.id})}"
+                       class=" btn btn-sm btn-danger">Delete
+                    Country</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

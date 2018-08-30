@@ -20,7 +20,7 @@ public class ExitPointController {
     @Autowired
     ExitPointService exitPointService;
 
-    @GetMapping(path = "{/id}")
+    @GetMapping(path = "/{id}")
     public List<ExitPointDTO> getExitPointByProvinceId(@PathVariable("id") Long id) {
         return exitPointService.getExitPointByProvinceId(id);
     }

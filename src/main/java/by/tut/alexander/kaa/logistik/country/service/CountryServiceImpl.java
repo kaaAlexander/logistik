@@ -31,4 +31,10 @@ public class CountryServiceImpl implements CountryService {
         }
         return countryDTOList;
     }
+
+    @Override
+    public void addCountry(CountryDTO countryDTO) {
+        Country country = countryConverter.convert(countryDTO);
+        countryRepository.save(country);
+    }
 }
