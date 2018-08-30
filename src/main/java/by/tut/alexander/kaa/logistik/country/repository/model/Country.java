@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "Country")
+@Table(name = "country")
 public class Country implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
