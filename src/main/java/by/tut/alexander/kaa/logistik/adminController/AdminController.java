@@ -2,6 +2,8 @@ package by.tut.alexander.kaa.logistik.adminController;
 
 import by.tut.alexander.kaa.logistik.country.service.CountryService;
 import by.tut.alexander.kaa.logistik.country.service.modelDTO.CountryDTO;
+import by.tut.alexander.kaa.logistik.customerService.service.CustomerServiceService;
+import by.tut.alexander.kaa.logistik.customerService.service.modelDTO.CustomerServiceDTO;
 import by.tut.alexander.kaa.logistik.exitPoint.service.ExitPointService;
 import by.tut.alexander.kaa.logistik.exitPoint.service.ModelDTO.ExitPointDTO;
 import by.tut.alexander.kaa.logistik.province.service.ModelDTO.ProvinceDTO;
@@ -27,6 +29,9 @@ public class AdminController {
 
     @Autowired
     ExitPointService exitPointService;
+
+    @Autowired
+    CustomerServiceService customerServiceService;
 
 
     @GetMapping("/countryList")
@@ -118,7 +123,7 @@ public class AdminController {
     }
 
     @GetMapping("/addExitPoint")
-    public String newExitPointpage(Model model, @RequestParam("provinceId") Long provinceId,
+    public String newExitPointPage(Model model, @RequestParam("provinceId") Long provinceId,
                                    @RequestParam("provinceName") String provinceName,
                                    @RequestParam("countryId") Long countryId,
                                    @RequestParam("countryName") String countryName) {
@@ -163,5 +168,73 @@ public class AdminController {
         redirectAttributes.addAttribute("provinceId", provinceId);
         redirectAttributes.addAttribute("provinceName", provinceName);
         return "redirect:exitPointList";
+    }
+
+    @GetMapping("/customerServicesList")
+    public String getCustomerServiceList(@RequestParam("exitPointId") Long exitPointId,
+                                         @RequestParam("provinceId") Long provinceId,
+                                         @RequestParam("provinceName") String provinceName,
+                                         @RequestParam("countryId") Long countryId,
+                                         @RequestParam("countryName") String countryName,
+                                         Model model) {
+        List<CustomerServiceDTO> customerServiceDTOList = customerServiceService.findCustomerServiceByExitPointId(exitPointId);
+        model.addAttribute("customerServices", customerServiceDTOList);
+        model.addAttribute("provinceId", provinceId);
+        model.addAttribute("provinceName", provinceName);
+        model.addAttribute("countryId", countryId);
+        model.addAttribute("countryName", countryName);
+        model.addAttribute("exitPointId", exitPointId);
+        return "customerServicesList";
+    }
+
+    @GetMapping("/addCustomerService")
+    public String newCustomerServicePage(@RequestParam("exitPointId") Long exitPointId,
+                                         @RequestParam("provinceId") Long provinceId,
+                                         @RequestParam("provinceName") String provinceName,
+                                         @RequestParam("countryId") Long countryId,
+                                         @RequestParam("countryName") String countryName,
+                                         Model model) {
+        model.addAttribute("customerService", new CustomerServiceDTO());
+        model.addAttribute("provinceId", provinceId);
+        model.addAttribute("provinceName", provinceName);
+        model.addAttribute("countryId", countryId);
+        model.addAttribute("countryName", countryName);
+        model.addAttribute("exitPointId", exitPointId);
+        return "addCustomerService";
+    }
+
+    @PostMapping("/addCustomerService")
+    public String createNewCustomerService(@ModelAttribute("customerService") CustomerServiceDTO customerServiceDTO,
+                                           @RequestParam("exitPointId") Long exitPointId,
+                                           @RequestParam("provinceId") Long provinceId,
+                                           @RequestParam("provinceName") String provinceName,
+                                           @RequestParam("countryId") Long countryId,
+                                           @RequestParam("countryName") String countryName,
+                                           RedirectAttributes redirectAttributes) {
+        customerServiceService.saveNewCustomerService(customerServiceDTO);
+        redirectAttributes.addAttribute("countryId", countryId);
+        redirectAttributes.addAttribute("countryName", countryName);
+        redirectAttributes.addAttribute("provinceId", provinceId);
+        redirectAttributes.addAttribute("provinceName", provinceName);
+        redirectAttributes.addAttribute("exitPointId", exitPointId);
+        return "redirect:customerServicesList";
+    }
+
+    @GetMapping("/deleteCustomerService")
+    public String deleteCustomerServicebyId(  @RequestParam("exitPointId") Long exitPointId,
+                                              @RequestParam("provinceId") Long provinceId,
+                                              @RequestParam("provinceName") String provinceName,
+                                              @RequestParam("countryId") Long countryId,
+                                              @RequestParam("countryName") String countryName,
+                                              @RequestParam("customerServiceId") Long customerServiceId,
+                                              RedirectAttributes redirectAttributes)
+    {
+        customerServiceService.deleteById(customerServiceId);
+        redirectAttributes.addAttribute("countryId", countryId);
+        redirectAttributes.addAttribute("countryName", countryName);
+        redirectAttributes.addAttribute("provinceId", provinceId);
+        redirectAttributes.addAttribute("provinceName", provinceName);
+        redirectAttributes.addAttribute("exitPointId", exitPointId);
+        return "redirect:customerServicesList";
     }
 }
