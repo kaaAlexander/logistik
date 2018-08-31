@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "province")
 public class Province implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "province_id")
     private Long id;
     @Column(name = "province_name")
@@ -24,7 +24,7 @@ public class Province implements Serializable {
     @JoinColumn(name = "country_id")
     @NotNull
     private Country country;
-    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY, orphanRemoval = true)
     List<ExitPoint> exitPointList;
 
     public Long getId() {

@@ -7,15 +7,16 @@
 <body>
 <div style="text-align:center; margin:10px">
     <a th:href="@{'/'}" class=" btn btn-primary btn-lg">Список стран</a>
+    <a th:href="@{'provinceList'}" class=" btn btn-primary btn-lg">Список областей</a>
     <div class="container">
         <div class="container">
-            <h4>Добавление страны : </h4>
-            <form action="#" th:action="@{/addCountry}" th:object="${country}" method="post">
+            <h4>Add New Province : </h4>
+            <form action="#" th:action="@{/addProvince(countryId=${countryId})}" th:object="${province}" method="post">
                 <div class="form-group row">
-                    <label for="title" class="col-sm-2 col-form-label col-form-label">Название страны : </label>
+                    <label for="title" class="col-sm-2 col-form-label col-form-label">Название области : </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control form-control" id="title" th:field="*{countryName}"
-                               placeholder="Введите название страны" required/>
+                        <input type="text" class="form-control form-control" id="title" th:field="*{provinceName}"
+                               placeholder="Введите название области" required/>
                     </div>
                 </div>
                 <input type="submit" class="btn btn-success" value="Добавить">

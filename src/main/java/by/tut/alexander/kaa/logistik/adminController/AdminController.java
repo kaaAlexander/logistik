@@ -2,11 +2,14 @@ package by.tut.alexander.kaa.logistik.adminController;
 
 import by.tut.alexander.kaa.logistik.country.service.CountryService;
 import by.tut.alexander.kaa.logistik.country.service.modelDTO.CountryDTO;
+import by.tut.alexander.kaa.logistik.province.service.ModelDTO.ProvinceDTO;
+import by.tut.alexander.kaa.logistik.province.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,6 +19,10 @@ public class AdminController {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    ProvinceService provinceService;
+
 
     @GetMapping("/")
     public String findAllCountries(Model model) {
@@ -37,5 +44,42 @@ public class AdminController {
         }
         countryService.addCountry(countryDTO);
         return "redirect:/";
+    }
+
+    @GetMapping("/deleteCountry")
+    public String deleteCountryById(@RequestParam("id") Long id) {
+        countryService.deleteCountryById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/provinceList")
+    public String getProvinceByCountryId(@RequestParam("id") Long id,
+                                         @RequestParam("countryName") String countryName,
+                                         Model model) {
+        List<ProvinceDTO> provinceDTOList = provinceService.getProvinceByCountryId(id);
+        model.addAttribute("provinceList", provinceDTOList);
+        model.addAttribute("countryId", id);
+        model.addAttribute("countryName", countryName);
+        return "provinceList";
+    }
+
+    @GetMapping("/addProvince")
+    public String newProvincePage(@RequestParam("countryId") Long id, Model model) {
+        model.addAttribute("province", new ProvinceDTO());
+        model.addAttribute("countryId", id);
+        return "addProvince";
+    }
+
+    @PostMapping("/addProvince")
+    public String createNewProvince(@ModelAttribute("province") @Valid ProvinceDTO provinceDTO,
+                                    @RequestParam("countryId") Long id, RedirectAttributes redirectAttributes,
+                                    BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "addProvince";
+        }
+        provinceDTO.setCountryId(id);
+        provinceService.addProvince(provinceDTO);
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/provinceList";
     }
 }

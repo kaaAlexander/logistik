@@ -37,4 +37,9 @@ public class CountryServiceImpl implements CountryService {
         Country country = countryConverter.convert(countryDTO);
         countryRepository.save(country);
     }
+
+    @Override
+    public void deleteCountryById(Long id) {
+        countryRepository.deleteCountryById(id);
+    }
 }

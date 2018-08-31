@@ -12,4 +12,6 @@ public interface CountryService {
     List<CountryDTO> getAllCountries();
 
     void addCountry(CountryDTO countryDTO);
+
+    void deleteCountryById(Long id);
 }

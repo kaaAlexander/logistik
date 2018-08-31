@@ -1,5 +1,8 @@
 package by.tut.alexander.kaa.logistik.province.service;
 
+import by.tut.alexander.kaa.logistik.country.repository.CountryRepository;
+import by.tut.alexander.kaa.logistik.country.repository.model.Country;
+import by.tut.alexander.kaa.logistik.country.service.CountryServiceImpl;
 import by.tut.alexander.kaa.logistik.country.service.modelDTO.CountryDTO;
 import by.tut.alexander.kaa.logistik.country.service.util.CountryConverter;
 import by.tut.alexander.kaa.logistik.province.repository.ProvinceRepository;
@@ -23,6 +26,9 @@ public class ProvinceServiceImpl implements ProvinceService {
     @Autowired
     ProvinceRepository provinceRepository;
 
+    @Autowired
+    CountryRepository countryRepository;
+
     @Override
     public List<ProvinceDTO> getProvinceByCountryId(Long id) {
         List<Province> provinceList = provinceRepository.findByCountryId(id);
@@ -32,5 +38,13 @@ public class ProvinceServiceImpl implements ProvinceService {
             provinceDTOList.add(provinceDTO);
         }
         return provinceDTOList;
+    }
+
+    @Override
+    public void addProvince(ProvinceDTO provinceDTO) {
+        Province province = provinceConverter.convert(provinceDTO);
+        Country country = countryRepository.findOneById(provinceDTO.getCountryId());
+        province.setCountry(country);
+        provinceRepository.save(province);
     }
 }

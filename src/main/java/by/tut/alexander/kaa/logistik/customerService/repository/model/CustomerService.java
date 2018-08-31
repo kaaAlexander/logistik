@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "customer_service")
 public class CustomerService implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "customer_service_id")
     private Long id;
     @Column(name = "customer_service_name")

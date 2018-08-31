@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'/'}" class=" btn btn-primary btn-lg">Список стран</a>
+    <a th:href="@{'addProvince'(countryId=${countryId})}" class=" btn btn-primary btn-lg">Добавить область</a>
+    <div class="container">
+        <h4>Province List for : <span th:text="${countryName}"></span></h4>
+        <table class="table table-sm" style="text-align:center" id="provinceTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Область :</th>
+                <th colspan="3">Действия :</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="province:${provinceList}">
+                <td th:text="${province.provinceName}"/>
+                <td><a th:href="@{'exitPoint'(id=${province.id})}" class=" btn btn-sm btn-success">Пункты перехода</a>
+                </td>
+                <td><a th:href="@{'deleteProvince'(id=${province.id})}"
+                       class=" btn btn-sm btn-danger">Удалить область</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

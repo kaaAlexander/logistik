@@ -14,12 +14,12 @@ import java.util.List;
 @Table(name = "country")
 public class Country implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "country_id")
     private Long id;
     @Column(name = "country_name")
     private String CountryName;
-    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Province> provinceList;
 
     public Long getId() {
