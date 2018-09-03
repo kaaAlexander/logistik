@@ -1,10 +1,12 @@
 package by.tut.alexander.kaa.logistik.user.repository.model;
 
-import org.hibernate.annotations.GeneratorType;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by GM on 30.08.2018.
@@ -14,7 +16,7 @@ import java.io.Serializable;
 @Table(name = "user")
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
     private Long id;
     @Column(name = "first_name")
@@ -30,8 +32,11 @@ public class User implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "email")
-    @Email
     private String email;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "role")
+    private String role;
 
     public Long getId() {
         return id;
@@ -95,5 +100,21 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

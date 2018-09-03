@@ -15,4 +15,11 @@ public class ExitPointConverter {
         exitPointDTO.setProvinceId(exitPoint.getProvince().getId());
         return exitPointDTO;
     }
+
+    public ExitPoint convert(ExitPointDTO exitPointDTO) {
+        ExitPoint exitPoint = new ExitPoint();
+        exitPoint.setId(exitPointDTO.getId());
+        exitPoint.setExitPointName(exitPointDTO.getExitPointName());
+        return exitPoint;
+    }
 }

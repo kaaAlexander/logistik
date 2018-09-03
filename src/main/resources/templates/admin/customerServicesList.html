@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'exitPointList' (provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}" class=" btn btn-primary btn-lg">Список
+        переходов</a>
+    <a th:href="@{'addCustomerService'(exitPointId=${exitPointId},provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}" class=" btn btn-primary btn-lg">Добавить
+        организацию</a>
+    <div class="container">
+        <h4>Список переходов для <span th:text="${name}"></span> области</h4>
+        <table class="table table-sm" style="text-align:center" id="provinceTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Название организации</th>
+                <th>Email</th>
+                <th colspan="3">Действия :</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customerService:${customerServices}">
+                <td th:text="${customerService.customerServiceName}"/>
+                <td th:text="${customerService.customerServiceEmail}"/>
+                <td><a th:href="@{'deleteCustomerService'(customerServiceId=${customerService.id},
+                exitPointId=${exitPointId}, provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}"
+                       class=" btn btn-sm btn-danger">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

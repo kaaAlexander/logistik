@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'addCountry'}" class=" btn btn-primary btn-lg">Добавить страну</a>
+    <div class="container">
+        <h4>Доступные страны : </h4>
+        <table class="table table-sm" style="text-align:center" id="countryTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Страна</th>
+                <th colspan="3">Действия :</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="country:${countries}">
+                <td th:text="${country.countryName}"/>
+                <td><a th:href="@{'provinceList'(countryId=${country.id}, countryName=${country.countryName})}"
+                       class=" btn btn-sm btn-success">Список областей</a>
+                </td>
+                <td><a th:href="@{'deleteCountry'(countryId=${country.id})}"
+                       class=" btn btn-sm btn-danger">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

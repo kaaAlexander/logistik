@@ -10,4 +10,8 @@ import java.util.List;
 public interface ExitPointService {
 
     List<ExitPointDTO> getExitPointByProvinceId(Long id);
+
+    void createNewExitPoint(ExitPointDTO exitPointDTO);
+
+    void deleteById(Long id);
 }

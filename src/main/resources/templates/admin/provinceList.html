@@ -6,10 +6,11 @@
 </head>
 <body>
 <div style="text-align:center; margin:10px">
-    <a th:href="@{'/'}" class=" btn btn-primary btn-lg">Список стран</a>
-    <a th:href="@{'addProvince'(countryId=${countryId})}" class=" btn btn-primary btn-lg">Добавить область</a>
+    <a th:href="@{'countryList'}" class=" btn btn-primary btn-lg">Список стран</a>
+    <a th:href="@{'addProvince'(countryId=${countryId},countryName=${countryName})}" class=" btn btn-primary btn-lg">Добавить
+        область</a>
     <div class="container">
-        <h4>Province List for : <span th:text="${countryName}"></span></h4>
+        <h4>Список областей для <span th:text="${name}"></span></h4>
         <table class="table table-sm" style="text-align:center" id="provinceTable">
             <thead class="thead-dark">
             <tr>
@@ -20,9 +21,13 @@
             <tbody>
             <tr th:each="province:${provinceList}">
                 <td th:text="${province.provinceName}"/>
-                <td><a th:href="@{'exitPoint'(id=${province.id})}" class=" btn btn-sm btn-success">Пункты перехода</a>
+                <td><a th:href="@{'exitPointList'(provinceId=${province.id},
+                provinceName=${province.provinceName},countryId=${countryId},countryName=${countryName})}"
+                       class=" btn btn-sm btn-success">Пункты
+                    перехода</a>
                 </td>
-                <td><a th:href="@{'deleteProvince'(id=${province.id})}"
+                <td>
+                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}"
                        class=" btn btn-sm btn-danger">Удалить область</a></td>
             </tr>
             </tbody>

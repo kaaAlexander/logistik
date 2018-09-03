@@ -16,4 +16,12 @@ public class CustomerServiceConverter {
         customerServiceDTO.setExitPointId(customerService.getExitPoint().getId());
         return customerServiceDTO;
     }
+
+    public CustomerService convert(CustomerServiceDTO customerServiceDTO) {
+        CustomerService customerService = new CustomerService();
+        customerService.setId(customerServiceDTO.getId());
+        customerService.setCustomerServiceName(customerServiceDTO.getCustomerServiceName());
+        customerService.setCustomerServiceEmail(customerServiceDTO.getCustomerServiceEmail());
+        return customerService;
+    }
 }

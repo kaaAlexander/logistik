@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'provinceList' (provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}" class=" btn btn-primary btn-lg">Список
+        областей</a>
+    <a th:href="@{'addExitPoint'(provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}" class=" btn btn-primary btn-lg">Добавить
+        переход</a>
+    <div class="container">
+        <h4>Список переходов для <span th:text="${name}"></span> области</h4>
+        <table class="table table-sm" style="text-align:center" id="provinceTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Переход :</th>
+                <th colspan="3">Действия :</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exitPoint:${exitPoints}">
+                <td th:text="${exitPoint.exitPointName}"/>
+                <td>
+                    <a th:href="@{'customerServicesList'(exitPointId=${exitPoint.id},provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}"
+                       class=" btn btn-sm btn-success">Организации</a>
+                </td>
+                <td><a th:href="@{'deleteExitPoint'(exitPointId=${exitPoint.id}, provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}"
+                       class=" btn btn-sm btn-danger">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

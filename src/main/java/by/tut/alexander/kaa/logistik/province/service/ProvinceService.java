@@ -13,4 +13,6 @@ public interface ProvinceService {
     List<ProvinceDTO> getProvinceByCountryId(Long id);
 
     void addProvince(ProvinceDTO provinceDTO);
+
+    void deleteProvinceById(Long id);
 }

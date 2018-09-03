@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'countryList'}" class=" btn btn-primary btn-lg">Список стран</a>
+    <a th:href="@{'provinceList' (countryId=${countryId}, countryName=${countryName})}"
+       class=" btn btn-primary btn-lg">Список областей</a>
+    <a th:href="@{'exitPointList' (countryId=${countryId}, countryName=${countryName},
+    provinceId=${provinceId}, provinceName=${provinceName})}"
+       class=" btn btn-primary btn-lg">Список переходов</a>
+    <div class="container">
+        <div class="container">
+            <h4>Add New Province : </h4>
+            <form action="#" th:action="@{/admin/addExitPoint(countryId=${countryId},countryName=${countryName},
+            provinceId=${provinceId}, provinceName=${provinceName})}"
+                  th:object="${exitPoint}" method="post">
+                <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label col-form-label">Название перехода : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="title" th:field="*{exitPointName}"
+                               placeholder="Введите название перехода" required/>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success" value="Добавить">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -10,4 +10,8 @@ import java.util.List;
 public interface CustomerServiceService {
 
     List<CustomerServiceDTO> findCustomerServiceByExitPointId(Long id);
+
+    void deleteById(Long id);
+
+    void saveNewCustomerService(CustomerServiceDTO customerServiceDTO);
 }

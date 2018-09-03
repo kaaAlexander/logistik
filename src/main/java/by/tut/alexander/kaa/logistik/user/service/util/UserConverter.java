@@ -18,6 +18,23 @@ public class UserConverter {
         userDTO.setEmail(user.getEmail());
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setUnp(user.getUnp());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setRole(user.getRole());
         return userDTO;
+    }
+
+    public User convert(UserDTO userDTO) {
+        User user = new User();
+        user.setCompanyName(userDTO.getCompanyName());
+        user.setEmail(userDTO.getEmail());
+        user.setFirstName(userDTO.getFirstName());
+        user.setSecondName(userDTO.getSecondName());
+        user.setThirdName(userDTO.getThirdName());
+        user.setId(userDTO.getId());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setUnp(userDTO.getUnp());
+        user.setPassword(userDTO.getPassword());
+        user.setRole(userDTO.getRole());
+        return user;
     }
 }

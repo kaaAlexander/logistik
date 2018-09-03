@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'countryList'}" class=" btn btn-primary btn-lg">Список стран</a>
+    <a th:href="@{'provinceList' (countryId=${countryId}, countryName=${countryName})}"
+       class=" btn btn-primary btn-lg">Список областей</a>
+    <a th:href="@{'exitPointList' (countryId=${countryId}, countryName=${countryName},
+    provinceId=${provinceId}, provinceName=${provinceName})}"
+       class=" btn btn-primary btn-lg">Список переходов</a>
+    <a th:href="@{'customerServices' (exitPointId=${exitPointId},countryId=${countryId}, countryName=${countryName},
+    provinceId=${provinceId}, provinceName=${provinceName})}"
+       class=" btn btn-primary btn-lg">Список Организаций</a>
+    <div class="container">
+        <div class="container">
+            <h4>Добавить новую ораганизацию : </h4>
+            <form action="#" th:action="@{/admin/addCustomerService(countryId=${countryId},countryName=${countryName},
+            provinceId=${provinceId}, provinceName=${provinceName}, exitPointId=${exitPointId})}"
+                  th:object="${customerService}" method="post">
+                <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label col-form-label">Название организации : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="titleName"
+                               th:field="*{customerServiceName}"
+                               placeholder="Введите название организации" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label col-form-label">Email организации : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="title"
+                               th:field="*{customerServiceEmail}"
+                               placeholder="Введите E-mail организации" required/>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success" value="Добавить">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -47,4 +47,9 @@ public class ProvinceServiceImpl implements ProvinceService {
         province.setCountry(country);
         provinceRepository.save(province);
     }
+
+    @Override
+    public void deleteProvinceById(Long id) {
+        provinceRepository.deleteById(id);
+    }
 }

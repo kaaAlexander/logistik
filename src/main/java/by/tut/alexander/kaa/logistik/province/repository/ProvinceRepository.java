@@ -14,4 +14,8 @@ import java.util.List;
 public interface ProvinceRepository extends CrudRepository<Province, Long> {
 
     List<Province> findByCountryId(Long id);
+
+    void deleteById(Long id);
+
+    Province findOneById(Long id);
 }

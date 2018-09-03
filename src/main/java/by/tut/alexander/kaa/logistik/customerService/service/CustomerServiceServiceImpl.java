@@ -4,6 +4,8 @@ import by.tut.alexander.kaa.logistik.customerService.repository.CustomerServiceR
 import by.tut.alexander.kaa.logistik.customerService.repository.model.CustomerService;
 import by.tut.alexander.kaa.logistik.customerService.service.modelDTO.CustomerServiceDTO;
 import by.tut.alexander.kaa.logistik.customerService.service.util.CustomerServiceConverter;
+import by.tut.alexander.kaa.logistik.exitPoint.repository.ExitPointRepository;
+import by.tut.alexander.kaa.logistik.exitPoint.service.ExitPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
     @Autowired
     CustomerServiceRepository customerServiceRepository;
 
+    @Autowired
+    ExitPointRepository exitPointRepository;
+
     @Override
     public List<CustomerServiceDTO> findCustomerServiceByExitPointId(Long id) {
         List<CustomerService> customerServiceList = customerServiceRepository.findCustomerServiceByExitPointId(id);
@@ -30,5 +35,17 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
             customerServiceDTOList.add(customerServiceDTO);
         }
         return customerServiceDTOList;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        customerServiceRepository.deleteById(id);
+    }
+
+    @Override
+    public void saveNewCustomerService(CustomerServiceDTO customerServiceDTO) {
+        CustomerService customerService = customerServiceConverter.convert(customerServiceDTO);
+        customerService.setExitPoint(exitPointRepository.findOneById(customerServiceDTO.getExitPointId()));
+        customerServiceRepository.save(customerService);
     }
 }

@@ -8,4 +8,8 @@ import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 public interface UserService {
 
     UserDTO getUserById(Long id);
+
+    UserDTO getUserByEmail(String email);
+
+    void save(UserDTO userDTO);
 }
