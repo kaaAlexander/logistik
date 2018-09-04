@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
+    <a th:href="@{'userList'}" class=" btn btn-primary btn-lg">Список Пользователей</a>
+    <div class="container">
+        <h4>Отправленные письма : </h4>
+        <table class="table table-sm" style="text-align:center" id="countryTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Компания получатель</th>
+                <th>Email</th>
+                <th>Дата отправки</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="email:${emailList}">
+                <td th:text="${email.customerServiceName}"/>
+                <td th:text="${email.customerServiceEmail}"/>
+                <td th:text="${email.date}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

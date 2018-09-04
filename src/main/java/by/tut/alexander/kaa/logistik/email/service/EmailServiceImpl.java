@@ -15,7 +15,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 @Service
@@ -66,5 +68,16 @@ public class EmailServiceImpl implements EmailService {
         email.setUser(userRepository.findUserById(emailDTO.getUserId()));
         email.setCustomerService(customerServiceRepository.findOneById(emailDTO.getCustomerServiceId()));
         emailRepository.save(email);
+    }
+
+    @Override
+    public List<EmailDTO> getAllEmailByUserId(Long id) {
+        List<Email> emailList = emailRepository.findAllByUserId(id);
+        List<EmailDTO> emailDTOList = new ArrayList<>();
+        for (Email email : emailList) {
+            EmailDTO emailDTO = emailConverter.convert(email);
+            emailDTOList.add(emailDTO);
+        }
+        return emailDTOList;
     }
 }

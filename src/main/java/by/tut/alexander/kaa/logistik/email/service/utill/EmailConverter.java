@@ -17,6 +17,8 @@ public class EmailConverter {
         emailDTO.setCustomerServiceId(email.getCustomerService().getId());
         emailDTO.setUserId(email.getUser().getId());
         emailDTO.setDate(email.getDate());
+        emailDTO.setCustomerServiceName(email.getCustomerService().getCustomerServiceName());
+        emailDTO.setCustomerServiceEmail(email.getCustomerService().getCustomerServiceEmail());
         return emailDTO;
     }
 }

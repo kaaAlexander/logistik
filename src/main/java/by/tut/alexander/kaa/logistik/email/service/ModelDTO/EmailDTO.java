@@ -7,6 +7,8 @@ public class EmailDTO {
     private Long userId;
     private Long CustomerServiceId;
     private Date date;
+    private String customerServiceName;
+    private String customerServiceEmail;
 
     public Long getId() {
         return id;
@@ -38,5 +40,21 @@ public class EmailDTO {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getCustomerServiceName() {
+        return customerServiceName;
+    }
+
+    public void setCustomerServiceName(String customerServiceName) {
+        this.customerServiceName = customerServiceName;
+    }
+
+    public String getCustomerServiceEmail() {
+        return customerServiceEmail;
+    }
+
+    public void setCustomerServiceEmail(String customerServiceEmail) {
+        this.customerServiceEmail = customerServiceEmail;
     }
 }
