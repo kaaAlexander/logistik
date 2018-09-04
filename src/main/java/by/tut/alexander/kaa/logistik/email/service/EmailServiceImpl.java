@@ -1,7 +1,6 @@
 package by.tut.alexander.kaa.logistik.email.service;
 
 import by.tut.alexander.kaa.logistik.customerService.repository.CustomerServiceRepository;
-import by.tut.alexander.kaa.logistik.customerService.repository.model.CustomerService;
 import by.tut.alexander.kaa.logistik.customerService.service.CustomerServiceService;
 import by.tut.alexander.kaa.logistik.customerService.service.modelDTO.CustomerServiceDTO;
 import by.tut.alexander.kaa.logistik.email.repository.EmailRepository;
@@ -54,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(userDTO.getEmail());
-        message.setTo(customerServiceDTO.getCustomerServiceEmail());
+        message.setTo(customerServiceDTO.getCustomerServiceEmail(), userDTO.getEmail(), "logistik.application@gmail.com");
         message.setSubject("тест");
         message.setText("привет!");
         emailSender.send(message);

@@ -30,7 +30,7 @@ public class AdminExitPointController {
         model.addAttribute("countryId", countryId);
         model.addAttribute("countryName", countryName);
         model.addAttribute("exitPoints", exitPointDTOList);
-        return "admin/exitPointList";
+        return "admin/exitPoint/exitPointList";
     }
 
     @GetMapping("/addExitPoint")
@@ -43,7 +43,7 @@ public class AdminExitPointController {
         model.addAttribute("provinceName", provinceName);
         model.addAttribute("countryId", countryId);
         model.addAttribute("countryName", countryName);
-        return "admin/addExitPoint";
+        return "admin/exitPoint/addExitPoint";
     }
 
     @PostMapping("/addExitPoint")
@@ -55,7 +55,7 @@ public class AdminExitPointController {
                                      RedirectAttributes redirectAttributes,
                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "admin/addExitPoint";
+            return "admin/exitPoint/addExitPoint";
         }
         exitPoint.setProvinceId(provinceId);
         exitPointService.createNewExitPoint(exitPoint);

@@ -27,7 +27,7 @@ public class AdminProvinceController {
         model.addAttribute("provinceList", provinceDTOList);
         model.addAttribute("countryId", id);
         model.addAttribute("countryName", countryName);
-        return "admin/provinceList";
+        return "admin/province/provinceList";
     }
 
     @GetMapping("/addProvince")
@@ -35,7 +35,7 @@ public class AdminProvinceController {
         model.addAttribute("province", new ProvinceDTO());
         model.addAttribute("countryId", countryId);
         model.addAttribute("countryName", countryName);
-        return "admin/addProvince";
+        return "admin/province/addProvince";
     }
 
     @PostMapping("/addProvince")
@@ -45,7 +45,7 @@ public class AdminProvinceController {
                                     RedirectAttributes redirectAttributes,
                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "admin/addProvince";
+            return "admin/province/addProvince";
         }
         provinceDTO.setCountryId(countryId);
         provinceService.addProvince(provinceDTO);

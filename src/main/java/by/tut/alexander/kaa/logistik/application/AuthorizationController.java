@@ -22,7 +22,7 @@ public class AuthorizationController {
         return "index";
     }
 
-    @GetMapping("/admin/menu")
+    @GetMapping(value = {"/admin/menu", "/admin"})
     public String success() {
         return "admin/menu";
     }
@@ -37,7 +37,7 @@ public class AuthorizationController {
         if (pass != "" && pass.equals(confPass)) {
             System.out.println(pass);
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String name = user.getUsername(); //get logged in username
+            String name = user.getUsername();
             UserDTO userDTO = userService.getUserByEmail(name);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             pass = passwordEncoder.encode(pass);

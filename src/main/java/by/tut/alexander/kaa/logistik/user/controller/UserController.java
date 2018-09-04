@@ -17,11 +17,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
     @PostMapping
     void createNewUser(@RequestBody UserDTO userDTO) {
         userService.save(userDTO);

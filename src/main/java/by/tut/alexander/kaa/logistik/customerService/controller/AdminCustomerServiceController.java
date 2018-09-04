@@ -33,7 +33,7 @@ public class AdminCustomerServiceController {
         model.addAttribute("countryId", countryId);
         model.addAttribute("countryName", countryName);
         model.addAttribute("exitPointId", exitPointId);
-        return "admin/customerServicesList";
+        return "admin/customerService/customerServicesList";
     }
 
     @GetMapping("/addCustomerService")
@@ -49,7 +49,7 @@ public class AdminCustomerServiceController {
         model.addAttribute("countryId", countryId);
         model.addAttribute("countryName", countryName);
         model.addAttribute("exitPointId", exitPointId);
-        return "admin/addCustomerService";
+        return "admin/customerService/addCustomerService";
     }
 
     @PostMapping("/addCustomerService")

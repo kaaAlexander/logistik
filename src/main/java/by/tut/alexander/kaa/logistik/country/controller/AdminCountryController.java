@@ -22,19 +22,19 @@ public class AdminCountryController {
     public String findAllCountries(Model model) {
         List<CountryDTO> countryDTOList = countryService.getAllCountries();
         model.addAttribute("countries", countryDTOList);
-        return "admin/countryList";
+        return "admin/country/countryList";
     }
 
     @GetMapping("/addCountry")
     public String newBookPage(Model model) {
         model.addAttribute("country", new CountryDTO());
-        return "admin/addCountry";
+        return "admin/country/addCountry";
     }
 
     @PostMapping("/addCountry")
     public String createNewBook(@ModelAttribute("country") @Valid CountryDTO countryDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "admin/addCountry";
+            return "admin/country/addCountry";
         }
         countryService.addCountry(countryDTO);
         return "redirect:countryList";
