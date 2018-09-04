@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by GM on 30.08.2018.
  */
@@ -22,7 +25,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(Long id) {
-        return null;
+        return userConverter.convert(userRepository.findUserById(id));
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> userList = userRepository.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userList) {
+            UserDTO userDTO = userConverter.convert(user);
+            userDTO.setPassword(null);
+            userDTO.setRole(null);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
     }
 
     @Override
@@ -32,6 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDTO userDTO) {
+        userDTO.setRole("ROLE_USER");
         userRepository.save(userConverter.convert(userDTO));
     }
 }

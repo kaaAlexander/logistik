@@ -48,4 +48,11 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
         customerService.setExitPoint(exitPointRepository.findOneById(customerServiceDTO.getExitPointId()));
         customerServiceRepository.save(customerService);
     }
+
+    @Override
+    public CustomerServiceDTO getCustomerServiceById(Long id) {
+        return customerServiceConverter.convert(customerServiceRepository.findOneById(id));
+    }
+
+
 }

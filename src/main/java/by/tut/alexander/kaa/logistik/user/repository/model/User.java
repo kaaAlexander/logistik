@@ -1,11 +1,12 @@
 package by.tut.alexander.kaa.logistik.user.repository.model;
 
+import by.tut.alexander.kaa.logistik.email.repository.model.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,6 +38,9 @@ public class User implements Serializable {
     private String password;
     @Column(name = "role")
     private String role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Email> emailList;
+
 
     public Long getId() {
         return id;
@@ -116,5 +120,13 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Email> getEmailList() {
+        return emailList;
+    }
+
+    public void setEmailList(List<Email> emailList) {
+        this.emailList = emailList;
     }
 }

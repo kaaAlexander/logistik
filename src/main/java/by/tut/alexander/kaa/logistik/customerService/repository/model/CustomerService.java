@@ -1,10 +1,11 @@
 package by.tut.alexander.kaa.logistik.customerService.repository.model;
 
+import by.tut.alexander.kaa.logistik.email.repository.model.Email;
 import by.tut.alexander.kaa.logistik.exitPoint.repository.Model.ExitPoint;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by GM on 30.08.2018.
@@ -19,11 +20,12 @@ public class CustomerService implements Serializable {
     @Column(name = "customer_service_name")
     private String customerServiceName;
     @Column(name = "customer_service_email")
-    @Email
     private String customerServiceEmail;
     @ManyToOne
     @JoinColumn(name = "exit_point_id")
     private ExitPoint exitPoint;
+    @OneToMany(mappedBy = "customerService", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Email> emailList;
 
     public Long getId() {
         return id;
