@@ -23,6 +23,19 @@
             </button>
         </form>
         <br>
+        <form th:action="@{/admin/statistic}">
+            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Статистика" type="Submit">
+                Статистика
+            </button>
+        </form>
+        <br>
+
+        <form th:action="@{/admin/serverEmail}">
+            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Почта сервера" type="Submit">
+                Почтовые ящики
+            </button>
+        </form>
+        <br>
         <form th:action="@{/admin/changePassword}" method="GET">
             <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Сменить пароль" type="Submit">
                 Сменить пароль

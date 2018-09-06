@@ -7,59 +7,133 @@ import by.tut.alexander.kaa.logistik.email.repository.EmailRepository;
 import by.tut.alexander.kaa.logistik.email.repository.model.Email;
 import by.tut.alexander.kaa.logistik.email.service.ModelDTO.EmailDTO;
 import by.tut.alexander.kaa.logistik.email.service.utill.EmailConverter;
+import by.tut.alexander.kaa.logistik.serverEmail.repostiry.ServerEmailRepository;
+import by.tut.alexander.kaa.logistik.serverEmail.service.ServerEmailService;
+import by.tut.alexander.kaa.logistik.serverEmail.service.modelDTO.ServerEmailDTO;
 import by.tut.alexander.kaa.logistik.user.repository.UserRepository;
 import by.tut.alexander.kaa.logistik.user.service.UserService;
 import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.util.*;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
+    @Autowired
+    private ServerEmailService serverEmailService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CustomerServiceService customerService;
+
+    @Autowired
+    private EmailRepository emailRepository;
+
+    @Autowired
+    private ServerEmailRepository serverEmailRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CustomerServiceRepository customerServiceRepository;
+
     private EmailConverter emailConverter = new EmailConverter();
+    private Integer count = 0;
+    private String emailFrom;
+    private Long serverEmailId;
 
-    @Autowired
-    public JavaMailSender emailSender;
 
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    CustomerServiceService customerService;
-
-    @Autowired
-    EmailRepository emailRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    CustomerServiceRepository customerServiceRepository;
-
+    private JavaMailSender getServerEmail() {
+        List<ServerEmailDTO> serverEmailDTOList = serverEmailService.getAllServerEmail();
+        if (count == serverEmailDTOList.size()) {
+            count = 0;
+        }
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        ServerEmailDTO serverEmailDTO = serverEmailDTOList.get(count);
+        mailSender.setHost(serverEmailDTO.getSmtp());
+        mailSender.setPort(serverEmailDTO.getPort());
+        mailSender.setUsername(serverEmailDTO.getEmail());
+        mailSender.setPassword(serverEmailDTO.getPassword());
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+        props.put("mail.smtp.ssl.enable", serverEmailDTO.isSsl());
+        count = count + 1;
+        emailFrom = serverEmailDTO.getEmail();
+        serverEmailId = serverEmailDTO.getId();
+        return mailSender;
+    }
 
     @Override
-    public void sendEmail(Long userId, Long customerServiceId) {
+    public void sendEmail(Long userId, Long customerServiceId, MultipartFile files) {
         EmailDTO emailDTO = new EmailDTO();
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT+3"));
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC+3"));
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
         emailDTO.setCustomerServiceId(customerServiceId);
         UserDTO userDTO = userService.getUserById(userId);
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(userDTO.getEmail());
-        message.setTo(customerServiceDTO.getCustomerServiceEmail(), userDTO.getEmail(), "logistik.application@gmail.com");
-        message.setSubject("тест");
-        message.setText("привет!");
-        emailSender.send(message);
-        saveEmail(emailDTO);
+        JavaMailSender mailSender = getServerEmail();
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            message.setHeader("Disposition-Notification-To", userDTO.getEmail());
+            message.setFrom(emailFrom);
+            helper.setTo(customerServiceDTO.getCustomerServiceEmail());
+            helper.setCc(userDTO.getEmail());
+            helper.setCc(emailFrom);
+            helper.addAttachment(files.getOriginalFilename(), files);
+            message.setSubject("тест");
+            message.setText("привет!");
+            mailSender.send(message);
+            saveEmail(emailDTO);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean sendEmail(Long userId, Long ServiceId) {
+        boolean send = true;
+        EmailDTO emailDTO = new EmailDTO();
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+3"));
+        emailDTO.setDate(new Date());
+        emailDTO.setUserId(userId);
+        emailDTO.setCustomerServiceId(ServiceId);
+        emailDTO.setSendingFrom(emailFrom);
+        UserDTO userDTO = userService.getUserById(userId);
+        CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(ServiceId);
+        JavaMailSender mailSender = getServerEmail();
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            message.setHeader("Disposition-Notification-To", userDTO.getEmail());
+            message.setFrom(emailFrom);
+            helper.setTo(customerServiceDTO.getCustomerServiceEmail());
+            helper.setCc(userDTO.getEmail());
+            helper.setCc(emailFrom);
+            message.setSubject("тест");
+            message.setText("привет!");
+            mailSender.send(message);
+            saveEmail(emailDTO);
+        } catch (Exception e) {
+            send = false;
+        }
+        return send;
     }
 
     @Override
@@ -67,6 +141,7 @@ public class EmailServiceImpl implements EmailService {
         Email email = emailConverter.convert(emailDTO);
         email.setUser(userRepository.findUserById(emailDTO.getUserId()));
         email.setCustomerService(customerServiceRepository.findOneById(emailDTO.getCustomerServiceId()));
+        email.setServerEmail(serverEmailRepository.findOneById(serverEmailId));
         emailRepository.save(email);
     }
 

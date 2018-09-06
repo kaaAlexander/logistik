@@ -17,4 +17,8 @@ public interface CustomerServiceRepository extends CrudRepository<CustomerServic
     void deleteById(Long id);
 
     CustomerService findOneById(Long id);
+
+    List<CustomerService> findAll();
+
+    List<CustomerService> findAllByCustomerServiceEmail(String email);
 }

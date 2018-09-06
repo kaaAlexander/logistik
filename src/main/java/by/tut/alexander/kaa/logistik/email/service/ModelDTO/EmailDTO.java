@@ -9,6 +9,7 @@ public class EmailDTO {
     private Date date;
     private String customerServiceName;
     private String customerServiceEmail;
+    private String sendingFrom;
 
     public Long getId() {
         return id;
@@ -56,5 +57,13 @@ public class EmailDTO {
 
     public void setCustomerServiceEmail(String customerServiceEmail) {
         this.customerServiceEmail = customerServiceEmail;
+    }
+
+    public String getSendingFrom() {
+        return sendingFrom;
+    }
+
+    public void setSendingFrom(String sendingFrom) {
+        this.sendingFrom = sendingFrom;
     }
 }

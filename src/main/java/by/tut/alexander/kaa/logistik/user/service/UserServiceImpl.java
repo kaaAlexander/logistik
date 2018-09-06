@@ -51,4 +51,37 @@ public class UserServiceImpl implements UserService {
         userDTO.setRole("ROLE_USER");
         userRepository.save(userConverter.convert(userDTO));
     }
+
+    @Override
+    public List<UserDTO> findUserByEmail(String email) {
+        List<User> userList = userRepository.findUsersByEmail(email);
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userList) {
+            UserDTO userDTO = userConverter.convert(user);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
+
+    @Override
+    public List<UserDTO> findUserByPhoneNumber(String phoneNumber) {
+        List<User> userList = userRepository.findUsersByPhoneNumber(phoneNumber);
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userList) {
+            UserDTO userDTO = userConverter.convert(user);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
+
+    @Override
+    public List<UserDTO> findUserByEmailAndPhoneNumber(String email, String phoneNumber) {
+        List<User> userList = userRepository.findUsersByEmailAndPhoneNumber(email, phoneNumber);
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userList) {
+            UserDTO userDTO = userConverter.convert(user);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
 }

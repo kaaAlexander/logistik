@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'serverEmail'}" class=" btn btn-primary btn-lg">Назад</a>
+    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
+    <div class="container">
+        <div class="container">
+            <h4>Добавление страны : </h4>
+            <form action="#" th:action="@{/admin/addServerEmail}" th:object="${serverEmail}" method="post">
+                <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label col-form-label">Адрес : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="title" th:field="*{email}"
+                               placeholder="Введите адресс" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label col-form-label">Пароль : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="password" th:field="*{password}"
+                               placeholder="Введите пароль" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="smtp" class="col-sm-2 col-form-label col-form-label">SMTP : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="smtp" th:field="*{smtp}"
+                               placeholder="Введите SMTP" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="port" class="col-sm-2 col-form-label col-form-label">Порт : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="port" th:field="*{port}"
+                               placeholder="Введите порт" required/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="ssl" class="col-sm-2 col-form-label col-form-label">SSL : </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control" id="ssl" th:field="*{ssl}"
+                               placeholder="ssl" required/>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success" value="Добавить">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

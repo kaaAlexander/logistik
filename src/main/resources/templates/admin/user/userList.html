@@ -8,6 +8,20 @@
 <div style="text-align:center; margin:10px">
     <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
     <div class="container">
+        <form th:action="@{/admin/userList}" th:object="${userFilter}" method="post">
+            <h6>Искать по:</h6>
+            <div class="form-group row">
+                <label for="title" class="col-sm-2 col-form-label col-form-label">Email : </label>
+                <input type="email" class="form-control form-control" id="title" th:field="*{email}"
+                       placeholder="введите Email"/>
+                <label for="phone" class="col-sm-2 col-form-label col-form-label">Phone : </label>
+                <input type="text" class="form-control form-control" id="phone" th:field="*{phoneNumber}"
+                       placeholder="Введите номер телефона"/>
+                <input style="margin: 10px" type="submit" class="btn btn-success" value="Искать">
+            </div>
+        </form>
+    </div>
+    <div class="container">
         <h4>Пользователи : </h4>
         <table class="table table-sm" style="text-align:center" id="countryTable">
             <thead class="thead-dark">

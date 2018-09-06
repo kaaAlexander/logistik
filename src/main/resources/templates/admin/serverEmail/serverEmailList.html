@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
+    <a th:href="@{'addServerEmail'}" class=" btn btn-primary btn-lg">Добавить почту</a>
+    <div class="container">
+        <h4>Почты для отправки : </h4>
+        <table class="table table-sm" style="text-align:center" id="countryTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Адрес</th>
+                <th>Пароль</th>
+                <th>SMTP</th>
+                <th>Порт</th>
+                <th>SSL</th>
+                <th>Действия :</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="email:${serverEmailList}">
+                <td th:text="${email.email}"/>
+                <td th:text="${email.password}"/>
+                <td th:text="${email.smtp}"/>
+                <td th:text="${email.port}"/>
+                <td th:text="${email.ssl}"/>
+                <td><a th:href="@{'deleteServerEmail'(emailId=${email.id})}"
+                       class=" btn btn-sm btn-danger">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

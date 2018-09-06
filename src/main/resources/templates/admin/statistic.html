@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistik</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<div style="text-align:center; margin:10px">
+    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
+    <div class="container">
+        <form th:action="@{/admin/statistic}" th:object="${customerService}" method="post">
+            <h6>Искать по:</h6>
+            <div class="form-group row">
+                <label for="title" class="col-sm-2 col-form-label col-form-label">Email : </label>
+                <input type="email" class="form-control form-control" id="title" th:field="*{customerServiceEmail}"
+                       placeholder="введите Email"/>
+                <label for="fromDate" class="col-sm-2 col-form-label col-form-label">C даты </label>
+                <input type="date" class="form-control form-control" id="fromDate" th:field="*{fromDate}"/>
+                <label for="byDate" class="col-sm-2 col-form-label col-form-label">По дату</label>
+                <input type="date" class="form-control form-control" id="byDate" th:field="*{byDate}"/>
+                <input style="margin: 10px" type="submit" class="btn btn-success" value="Искать">
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <h4>Организации : </h4>
+        <table class="table table-sm" style="text-align:center" id="countryTable">
+            <thead class="thead-dark">
+            <tr>
+                <th>Email</th>
+                <th>Количество отправленных писем</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customerService:${customerServiceList}">
+                <td th:text="${customerService.customerServiceEmail}"/>
+                <td th:text="${customerService.emailCount}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

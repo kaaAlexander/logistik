@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -84,5 +86,56 @@ public class AdminCustomerServiceController {
         redirectAttributes.addAttribute("provinceName", provinceName);
         redirectAttributes.addAttribute("exitPointId", exitPointId);
         return "redirect:customerServicesList";
+    }
+
+    @GetMapping("/statistic")
+    public String getAllCustomersService(Model model) {
+        model.addAttribute("customerService", new CustomerServiceDTO());
+        model.addAttribute("customerServiceList", customerServiceService.getAllCustomerService());
+        return "admin/statistic";
+    }
+
+    @PostMapping("/statistic")
+    public String getCustomerServiceByProperties(@ModelAttribute("customerService") CustomerServiceDTO customerServiceDTO, Model model) {
+        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
+        if (customerServiceDTO.getCustomerServiceEmail() == "" && customerServiceDTO.getByDate() == null && customerServiceDTO.getFromDate() == null) {
+            return "redirect:statistic";
+        }
+        if (customerServiceDTO.getCustomerServiceEmail() != "") {
+            if (customerServiceDTO.getByDate() == null && customerServiceDTO.getFromDate() == null) {
+                customerServiceDTOList = customerServiceService.getCustomerServiceByEmail(customerServiceDTO.getCustomerServiceEmail());
+            }
+            if (customerServiceDTO.getByDate() != null && customerServiceDTO.getFromDate() == null) {
+                customerServiceDTOList = customerServiceService
+                        .getCustomerServiceByEmailAndByDate(customerServiceDTO.getCustomerServiceEmail(), customerServiceDTO.getByDate());
+            }
+            if (customerServiceDTO.getByDate() == null && customerServiceDTO.getFromDate() != null) {
+                customerServiceDTOList = customerServiceService
+                        .getCustomerServiceByEmailAndFromDate(customerServiceDTO.getCustomerServiceEmail(), customerServiceDTO.getFromDate());
+            }
+            if (customerServiceDTO.getByDate() != null && customerServiceDTO.getFromDate() != null) {
+                customerServiceDTOList = customerServiceService
+                        .getCustomerServiceByEmailAndFromDateAndByDate(customerServiceDTO.getCustomerServiceEmail()
+                                , customerServiceDTO.getFromDate(), customerServiceDTO.getByDate());
+            }
+
+        } else {
+            if (customerServiceDTO.getByDate() != null && customerServiceDTO.getFromDate() == null) {
+                customerServiceDTOList = customerServiceService
+                        .getCustomerServiceByByDate(customerServiceDTO.getByDate());
+            }
+            if (customerServiceDTO.getByDate() == null && customerServiceDTO.getFromDate() != null) {
+                customerServiceDTOList = customerServiceService
+                        .getCustomerServiceByFromDate(customerServiceDTO.getFromDate());
+            }
+            if (customerServiceDTO.getByDate() != null && customerServiceDTO.getFromDate() != null) {
+                customerServiceDTOList = customerServiceService
+                        .getCustomerServiceByFromDateAndByDate(customerServiceDTO.getFromDate(), customerServiceDTO.getByDate());
+            }
+
+
+        }
+        model.addAttribute("customerServiceList", customerServiceDTOList);
+        return "admin/statistic";
     }
 }

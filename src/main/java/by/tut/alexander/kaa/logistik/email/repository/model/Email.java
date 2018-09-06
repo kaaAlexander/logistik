@@ -1,6 +1,7 @@
 package by.tut.alexander.kaa.logistik.email.repository.model;
 
 import by.tut.alexander.kaa.logistik.customerService.repository.model.CustomerService;
+import by.tut.alexander.kaa.logistik.serverEmail.repostiry.Model.ServerEmail;
 import by.tut.alexander.kaa.logistik.user.repository.model.User;
 
 import javax.persistence.*;
@@ -23,6 +24,9 @@ public class Email implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_service_id")
     private CustomerService customerService;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "server_email_id")
+    private ServerEmail serverEmail;
 
     public Long getId() {
         return id;
@@ -54,5 +58,13 @@ public class Email implements Serializable {
 
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
+    }
+
+    public ServerEmail getServerEmail() {
+        return serverEmail;
+    }
+
+    public void setServerEmail(ServerEmail serverEmail) {
+        this.serverEmail = serverEmail;
     }
 }

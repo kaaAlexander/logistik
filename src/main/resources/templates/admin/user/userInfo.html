@@ -16,6 +16,7 @@
                 <th>Компания получатель</th>
                 <th>Email</th>
                 <th>Дата отправки</th>
+                <th>Адрес отправки</th>
             </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                 <td th:text="${email.customerServiceName}"/>
                 <td th:text="${email.customerServiceEmail}"/>
                 <td th:text="${email.date}"/>
+                <td th:text="${email.sendingFrom}"/>
             </tr>
             </tbody>
         </table>

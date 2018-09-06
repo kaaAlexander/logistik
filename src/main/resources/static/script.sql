@@ -1,4 +1,5 @@
-   insert into `user` (`user_id`,`company_name`,`email`,`first_name`,`password`,`phone_number`,`role`,`second_name`,`third_name`,`unp`) values (1,'admin','admin','admin','$2a$06$ghanMsZ.hslEuE6b0BdBzupOKtoQsghnYe5FTZixau07.4dL1QSMa','admin','ROLE_ADMIN','admin','admin','unp');
+   insert into `user` (`user_id`,`company_name`,`email`,`first_name`,`password`,`phone_number`,`role`,`second_name`,`third_name`,`unp`)
+   values (1,'admin','admin','admin','$2a$06$ghanMsZ.hslEuE6b0BdBzupOKtoQsghnYe5FTZixau07.4dL1QSMa','admin','ROLE_ADMIN','admin','admin','unp');
      insert into `user` (`user_id`,`company_name`,`email`,`first_name`,`phone_number`,`role`,
      `second_name`,`third_name`,`unp`)
      values (2,'Roga I kopita','kaa.alexander@tut.by','Alex','+3752911111111','USER_ROLE','Alex','Alex','unp');
