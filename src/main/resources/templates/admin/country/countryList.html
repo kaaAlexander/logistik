@@ -4,30 +4,57 @@
     <title>Logistik</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 </head>
-<body>
-<div style="text-align:center; margin:10px">
-    <a th:href="@{'addCountry'}" class=" btn btn-primary btn-lg">Добавить страну</a>
-    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
-    <div class="container">
-        <h4>Доступные страны : </h4>
-        <table class="table table-sm" style="text-align:center" id="countryTable">
-            <thead class="thead-dark">
-            <tr>
-                <th>Страна</th>
-                <th colspan="3">Действия :</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="country:${countries}">
-                <td th:text="${country.countryName}"/>
-                <td><a th:href="@{'provinceList'(countryId=${country.id}, countryName=${country.countryName})}"
-                       class=" btn btn-sm btn-success">Список областей</a>
-                </td>
-                <td><a th:href="@{'deleteCountry'(countryId=${country.id})}"
-                       class=" btn btn-sm btn-danger">Удалить</a></td>
-            </tr>
-            </tbody>
-        </table>
+<body style="background-color: #f6f5f0">
+<div style="position: absolute; top: 50%; margin-top:-20%;left:5%; width: 90%;">
+    <div style="float: left;width:20%">
+        <h3 style="color: #A7A7A7">NOTIFY.BY</h3>
+        <form th:action="@{/admin/countryList}" method="GET">
+            <button class="btn btn-sm btn-primary btn-block" name="Submit" value="Организации" type="Submit">Категории
+            </button>
+        </form>
+        <form th:action="@{/admin/userList}">
+            <button class="btn btn-sm btn-primary btn-block" name="Submit" value="Пользователи" type="Submit">
+                Список пользователей
+            </button>
+        </form>
+        <form th:action="@{/admin/statistic}">
+            <button class="btn btn-sm btn-primary btn-block" name="Submit" value="Статистика" type="Submit">
+                Статистика
+            </button>
+        </form>
+        <form th:action="@{/admin/serverEmail}">
+            <button class="btn btn-sm btn-primary btn-block" name="Submit" value="Почта сервера" type="Submit">
+                Управление почтой
+            </button>
+        </form>
+        <form th:action="@{/admin/changePassword}" method="GET">
+            <button class="btn btn-sm btn-primary btn-block" name="Submit" value="Сменить пароль" type="Submit">
+                Сменить пароль
+            </button>
+        </form>
+    </div>
+    <div style="text-align:center; margin:10px;">
+        <a style="align-self: right" th:href="@{'addCountry'}" class=" btn btn-primary btn-sm">Добавить страну</a>
+        <div class="container">
+            <table id="countryTable">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Страна</th>
+                    <th colspan="3">Действия :</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="country:${countries}">
+                    <td th:text="${country.countryName}"/>
+                    <td><a th:href="@{'provinceList'(countryId=${country.id}, countryName=${country.countryName})}"
+                           class=" btn btn-sm btn-success">Список областей</a>
+                    </td>
+                    <td><a th:href="@{'deleteCountry'(countryId=${country.id})}"
+                           class=" btn btn-sm btn-danger">Удалить</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>

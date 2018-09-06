@@ -20,7 +20,7 @@ public class CustomerServiceController {
     @Autowired
     CustomerServiceService customerServiceService;
 
-    @GetMapping(path = {"/id"})
+    @GetMapping(path = {"/{id}"})
     public List<CustomerServiceDTO> getCustomerServiceByExitPointId(@PathVariable("id") Long id) {
         return customerServiceService.findCustomerServiceByExitPointId(id);
     }

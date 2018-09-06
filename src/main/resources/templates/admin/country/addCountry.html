@@ -4,23 +4,24 @@
     <title>Logistik</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 </head>
-<body>
-<div style="text-align:center; margin:10px">
-    <a th:href="@{'countryList'(countryId=${country.id}, countryName=${country.countryName})}"
-       class=" btn btn-primary btn-lg">Список стран</a>
-    <div class="container">
+<body style="background-color: #f6f5f0">
+    <div style="text-align:center; margin:10px">
+        <a th:href="@{'countryList'(countryId=${country.id}, countryName=${country.countryName})}"
+           class=" btn btn-primary btn-lg">Список стран</a>
         <div class="container">
-            <h4>Добавление страны : </h4>
-            <form action="#" th:action="@{/admin/addCountry}" th:object="${country}" method="post">
-                <div class="form-group row">
-                    <label for="title" class="col-sm-2 col-form-label col-form-label">Название страны : </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control form-control" id="title" th:field="*{countryName}"
-                               placeholder="Введите название страны" required/>
+            <div class="container">
+                <h4>Добавление страны : </h4>
+                <form action="#" th:action="@{/admin/addCountry}" th:object="${country}" method="post">
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 col-form-label col-form-label">Название страны : </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control" id="title" th:field="*{countryName}"
+                                   placeholder="Введите название страны" required/>
+                        </div>
                     </div>
-                </div>
-                <input type="submit" class="btn btn-success" value="Добавить">
-            </form>
+                    <input type="submit" class="btn btn-success" value="Добавить">
+                </form>
+            </div>
         </div>
     </div>
 </div>
