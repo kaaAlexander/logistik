@@ -5,6 +5,7 @@ import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 /**
@@ -20,5 +21,10 @@ public class UserController {
     @PostMapping
     void createNewUser(@RequestBody UserDTO userDTO) {
         userService.save(userDTO);
+    }
+
+    @GetMapping
+    List<UserDTO> getUsers() {
+        return userService.getAllUsers();
     }
 }
