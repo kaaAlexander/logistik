@@ -86,129 +86,41 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
 
     @Override
     public List<CustomerServiceDTO> getCustomerServiceByEmailAndFromDate(String email, Date fromDate) {
-        Long count = Long.valueOf(0);
         List<CustomerService> customerServiceList = customerServiceRepository.findAllByCustomerServiceEmail(email);
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
-        for (CustomerService customerService : customerServiceList) {
-            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
-            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
-            count = Long.valueOf(0);
-            for (Email entity : emailList) {
-                if (entity.getDate().after(fromDate) || entity.getDate().equals(fromDate)) {
-                    count = count + 1;
-                }
-            }
-            customerServiceDTO.setEmailCount(count);
-            customerServiceDTOList.add(customerServiceDTO);
-        }
-        return customerServiceDTOList;
+        return sortByFromDate(customerServiceList, fromDate);
     }
 
     @Override
     public List<CustomerServiceDTO> getCustomerServiceByEmailAndByDate(String email, Date byDate) {
-        Long count = Long.valueOf(0);
         List<CustomerService> customerServiceList = customerServiceRepository.findAllByCustomerServiceEmail(email);
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
-        for (CustomerService customerService : customerServiceList) {
-            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
-            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
-            byDate = getEnd(byDate);
-            count = Long.valueOf(0);
-            for (Email entity : emailList) {
-                if (entity.getDate().before(byDate) || entity.getDate().equals(byDate)) {
-                    count = count + 1;
-                }
-            }
-            customerServiceDTO.setEmailCount(count);
-            customerServiceDTOList.add(customerServiceDTO);
-        }
-        return customerServiceDTOList;
+        return sortByByDate(customerServiceList, byDate);
     }
 
     @Override
     public List<CustomerServiceDTO> getCustomerServiceByEmailAndFromDateAndByDate(String email, Date fromDate, Date byDate) {
-        Long count = Long.valueOf(0);
         List<CustomerService> customerServiceList = customerServiceRepository.findAllByCustomerServiceEmail(email);
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
-        for (CustomerService customerService : customerServiceList) {
-            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
-            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
-            byDate = getEnd(byDate);
-            count = Long.valueOf(0);
-            for (Email entity : emailList) {
-                if (entity.getDate().before(byDate) && entity.getDate().after(fromDate) || entity.getDate().equals(byDate) || entity.getDate().equals(fromDate)) {
-                    count = count + 1;
-                }
-            }
-            customerServiceDTO.setEmailCount(count);
-            customerServiceDTOList.add(customerServiceDTO);
-        }
-        return customerServiceDTOList;
+        return sortByFromDateAndByDate(customerServiceList, fromDate, byDate);
     }
 
     @Override
     public List<CustomerServiceDTO> getCustomerServiceByFromDate(Date fromDate) {
-        Long count = Long.valueOf(0);
         List<CustomerService> customerServiceList = customerServiceRepository.findAll();
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
-        for (CustomerService customerService : customerServiceList) {
-            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
-            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
-            count = Long.valueOf(0);
-            for (Email entity : emailList) {
-                if (entity.getDate().after(fromDate) || entity.getDate().equals(fromDate)) {
-                    count = count + 1;
-                }
-            }
-            customerServiceDTO.setEmailCount(count);
-            customerServiceDTOList.add(customerServiceDTO);
-        }
-        return customerServiceDTOList;
+        return sortByFromDate(customerServiceList, fromDate);
     }
 
     @Override
     public List<CustomerServiceDTO> getCustomerServiceByByDate(Date byDate) {
-        Long count = Long.valueOf(0);
         List<CustomerService> customerServiceList = customerServiceRepository.findAll();
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
-        for (CustomerService customerService : customerServiceList) {
-            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
-            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
-            byDate = getEnd(byDate);
-            count = Long.valueOf(0);
-            for (Email entity : emailList) {
-                if (entity.getDate().before(byDate) || entity.getDate().equals(byDate)) {
-                    count = count + 1;
-                }
-            }
-            customerServiceDTO.setEmailCount(count);
-            customerServiceDTOList.add(customerServiceDTO);
-        }
-        return customerServiceDTOList;
+        return sortByByDate(customerServiceList, byDate);
     }
 
     @Override
     public List<CustomerServiceDTO> getCustomerServiceByFromDateAndByDate(Date fromDate, Date byDate) {
-        Long count = Long.valueOf(0);
         List<CustomerService> customerServiceList = customerServiceRepository.findAll();
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
-        for (CustomerService customerService : customerServiceList) {
-            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
-            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
-            byDate = getEnd(byDate);
-            count = Long.valueOf(0);
-            for (Email entity : emailList) {
-                if (entity.getDate().before(byDate) && entity.getDate().after(fromDate) || entity.getDate().equals(byDate) || entity.getDate().equals(fromDate)) {
-                    count = count + 1;
-                }
-            }
-            customerServiceDTO.setEmailCount(count);
-            customerServiceDTOList.add(customerServiceDTO);
-        }
-        return customerServiceDTOList;
+        return sortByFromDateAndByDate(customerServiceList, fromDate, byDate);
     }
 
-    public Date getEnd(Date date) {
+    private Date getEnd(Date date) {
         if (date == null) {
             return null;
         }
@@ -219,6 +131,59 @@ public class CustomerServiceServiceImpl implements CustomerServiceService {
         c.set(Calendar.SECOND, 59);
         c.set(Calendar.MILLISECOND, 999);
         return c.getTime();
+    }
+
+    private List<CustomerServiceDTO> sortByFromDate(List<CustomerService> customerServiceList, Date fromDate) {
+        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
+        for (CustomerService customerService : customerServiceList) {
+            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
+            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
+            Long count = Long.valueOf(0);
+            for (Email entity : emailList) {
+                if (entity.getDate().after(fromDate) || entity.getDate().equals(fromDate)) {
+                    count = count + 1;
+                }
+            }
+            customerServiceDTO.setEmailCount(count);
+            customerServiceDTOList.add(customerServiceDTO);
+        }
+        return customerServiceDTOList;
+    }
+
+    private List<CustomerServiceDTO> sortByByDate(List<CustomerService> customerServiceList, Date byDate) {
+        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
+        for (CustomerService customerService : customerServiceList) {
+            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
+            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
+            byDate = getEnd(byDate);
+            Long count = Long.valueOf(0);
+            for (Email entity : emailList) {
+                if (entity.getDate().before(byDate) || entity.getDate().equals(byDate)) {
+                    count = count + 1;
+                }
+            }
+            customerServiceDTO.setEmailCount(count);
+            customerServiceDTOList.add(customerServiceDTO);
+        }
+        return customerServiceDTOList;
+    }
+
+    private List<CustomerServiceDTO> sortByFromDateAndByDate(List<CustomerService> customerServiceList, Date fromDate, Date byDate) {
+        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
+        for (CustomerService customerService : customerServiceList) {
+            CustomerServiceDTO customerServiceDTO = customerServiceConverter.convert(customerService);
+            List<Email> emailList = emailRepository.findAllByCustomerService(customerService);
+            byDate = getEnd(byDate);
+            Long count = Long.valueOf(0);
+            for (Email entity : emailList) {
+                if (entity.getDate().before(byDate) && entity.getDate().after(fromDate) || entity.getDate().equals(byDate) || entity.getDate().equals(fromDate)) {
+                    count = count + 1;
+                }
+            }
+            customerServiceDTO.setEmailCount(count);
+            customerServiceDTOList.add(customerServiceDTO);
+        }
+        return customerServiceDTOList;
     }
 
 

@@ -86,8 +86,8 @@ public class EmailServiceImpl implements EmailService {
         emailDTO.setUserId(userId);
         emailDTO.setCustomerServiceId(customerServiceId);
         UserDTO userDTO = userService.getUserById(userId);
-        subject = ("Компания : " + userDTO.getCompanyName() + "\n" + " УНП : " + userDTO.getUnp() +
-                "\n" + "ФИО : " + userDTO.getName() + "\n" + emailDTO.getSubject());
+        subject = ("Компания : " + userDTO.getCompanyName() + "    \n" + "УНП : " + userDTO.getUnp() +
+                "    \n" + "ФИО : " + userDTO.getName() + "    \n" + emailDTO.getSubject());
         text = subject + "\n" + "Email : " + userDTO.getEmail() + "\n" + "Телефон : " + userDTO.getPhoneNumber() +
                 "\n" + emailDTO.getText();
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
