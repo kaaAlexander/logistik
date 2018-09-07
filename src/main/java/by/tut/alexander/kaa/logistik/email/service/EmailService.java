@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface EmailService {
 
-    void sendEmail(Long userId, Long ServiceId, MultipartFile files);
+    boolean sendEmail(Long userId, Long ServiceId, MultipartFile[] files, EmailDTO emailDTO);
 
-    boolean sendEmail(Long userId, Long ServiceId);
+    boolean sendEmail(Long userId, Long ServiceId, EmailDTO emailDTO);
 
     void saveEmail(EmailDTO emailDTO);
 

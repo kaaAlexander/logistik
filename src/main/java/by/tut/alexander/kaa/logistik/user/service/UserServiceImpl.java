@@ -47,9 +47,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDTO userDTO) {
+    public Long save(UserDTO userDTO) {
+        userDTO.setPassword("");
         userDTO.setRole("ROLE_USER");
-        userRepository.save(userConverter.convert(userDTO));
+        User user = userConverter.convert(userDTO);
+        userRepository.save(user);
+        Long userId = user.getId();
+        return userId;
     }
 
     @Override

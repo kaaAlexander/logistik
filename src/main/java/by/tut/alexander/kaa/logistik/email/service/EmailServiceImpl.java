@@ -79,8 +79,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmail(Long userId, Long customerServiceId, MultipartFile files) {
-        EmailDTO emailDTO = new EmailDTO();
+    public boolean sendEmail(Long userId, Long customerServiceId, MultipartFile[] files, EmailDTO emailDTO) {
+        boolean status = true;
         TimeZone.setDefault(TimeZone.getTimeZone("UTC+3"));
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
@@ -96,20 +96,22 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(customerServiceDTO.getCustomerServiceEmail());
             helper.setCc(userDTO.getEmail());
             helper.setCc(emailFrom);
-            helper.addAttachment(files.getOriginalFilename(), files);
-            message.setSubject("тест");
-            message.setText("привет!");
+            for (MultipartFile file : files) {
+                helper.addAttachment(file.getOriginalFilename(), file);
+            }
+            helper.setSubject(emailDTO.getSubject());
+            helper.setText(emailDTO.getText());
             mailSender.send(message);
             saveEmail(emailDTO);
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            status = false;
         }
+        return status;
     }
 
     @Override
-    public boolean sendEmail(Long userId, Long ServiceId) {
+    public boolean sendEmail(Long userId, Long ServiceId, EmailDTO emailDTO) {
         boolean send = true;
-        EmailDTO emailDTO = new EmailDTO();
         TimeZone.setDefault(TimeZone.getTimeZone("GMT+3"));
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
@@ -126,8 +128,8 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(customerServiceDTO.getCustomerServiceEmail());
             helper.setCc(userDTO.getEmail());
             helper.setCc(emailFrom);
-            message.setSubject("тест");
-            message.setText("привет!");
+            message.setSubject(emailDTO.getSubject());
+            message.setText(emailDTO.getText());
             mailSender.send(message);
             saveEmail(emailDTO);
         } catch (Exception e) {

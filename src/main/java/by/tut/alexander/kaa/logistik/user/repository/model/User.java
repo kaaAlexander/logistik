@@ -20,12 +20,8 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "second_name")
-    private String secondName;
-    @Column(name = "third_name")
-    private String thirdName;
+    @Column(name = "name")
+    private String name;
     @Column(name = "unp")
     private String unp;
     @Column(name = "company_name")
@@ -48,30 +44,6 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getThirdName() {
-        return thirdName;
-    }
-
-    public void setThirdName(String thirdName) {
-        this.thirdName = thirdName;
     }
 
     public String getUnp() {
@@ -128,5 +100,13 @@ public class User implements Serializable {
 
     public void setEmailList(List<Email> emailList) {
         this.emailList = emailList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

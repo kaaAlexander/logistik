@@ -11,9 +11,7 @@ public class UserConverter {
     public UserDTO convert(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setSecondName(user.getSecondName());
-        userDTO.setThirdName(user.getThirdName());
+        userDTO.setName(user.getName());
         userDTO.setCompanyName(user.getCompanyName());
         userDTO.setEmail(user.getEmail());
         userDTO.setPhoneNumber(user.getPhoneNumber());
@@ -27,9 +25,7 @@ public class UserConverter {
         User user = new User();
         user.setCompanyName(userDTO.getCompanyName());
         user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setSecondName(userDTO.getSecondName());
-        user.setThirdName(userDTO.getThirdName());
+        user.setName(userDTO.getName());
         user.setId(userDTO.getId());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setUnp(userDTO.getUnp());

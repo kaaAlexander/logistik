@@ -16,15 +16,10 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping
-    void createNewUser(@RequestBody UserDTO userDTO) {
-        userService.save(userDTO);
-    }
-
-    @GetMapping
-    List<UserDTO> getUsers() {
-        return userService.getAllUsers();
+    Long createNewUser(@RequestBody UserDTO userDTO) {
+        return userService.save(userDTO);
     }
 }
