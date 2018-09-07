@@ -28,7 +28,7 @@ public class AdminUserController {
     @PostMapping("/userList")
     public String getUserByEmailAndPhone(@ModelAttribute("userFilter") UserDTO userDTO, Model model) {
         List<UserDTO> userDTOList = new ArrayList<>();
-        if (userDTO.getEmail().equals("") && !userDTO.getPhoneNumber().equals("")) {
+        if (!userDTO.getEmail().equals("") && !userDTO.getPhoneNumber().equals("")) {
             userDTOList = userService.findUserByEmailAndPhoneNumber(userDTO.getEmail(), userDTO.getPhoneNumber());
         }
         if (userDTO.getEmail().equals("") && !userDTO.getPhoneNumber().equals("")) {
