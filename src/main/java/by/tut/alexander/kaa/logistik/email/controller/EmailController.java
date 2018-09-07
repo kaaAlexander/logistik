@@ -13,21 +13,12 @@ public class EmailController {
     @Autowired
     EmailService emailService;
 
-
-    @GetMapping
-    @ResponseBody
-    boolean sendEmailWithoutAttachments(@RequestParam("userId") Long userId,
-                                        @RequestParam("serviceId") Long serviceId,
-                                        @RequestBody EmailDTO emailDTO) {
-        return emailService.sendEmail(userId, serviceId, emailDTO);
-    }
-
     @PostMapping
     boolean sendEmail(@RequestParam("userId") Long userId,
                       @RequestParam("serviceId") Long serviceId,
                       @RequestParam("files") MultipartFile[] files,
-                      @RequestParam("subject") String subject,
-                      @RequestParam("text") String text) {
+                      @RequestParam(value = "subject", required = false) String subject,
+                      @RequestParam(value = "text", required = false) String text) {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setSubject(subject);
         emailDTO.setText(text);

@@ -24,7 +24,7 @@ public class Province implements Serializable {
     @JoinColumn(name = "country_id")
     @NotNull
     private Country country;
-    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     List<ExitPoint> exitPointList;
 
     public Long getId() {

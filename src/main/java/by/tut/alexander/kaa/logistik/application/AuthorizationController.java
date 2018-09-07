@@ -7,9 +7,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.naming.Binding;
 
 @Controller
 public class AuthorizationController {
@@ -33,7 +39,8 @@ public class AuthorizationController {
     }
 
     @PostMapping("/admin/changePassword")
-    public String setNewPassword(@RequestParam("newPassword") String pass, @RequestParam("confirmPassword") String confPass) {
+    public String setNewPassword(@RequestParam("newPassword") String pass, @RequestParam("confirmPassword") String confPass,
+                                 Model model) {
         if (pass != "" && pass.equals(confPass)) {
             System.out.println(pass);
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,11 +49,12 @@ public class AuthorizationController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             pass = passwordEncoder.encode(pass);
             userDTO.setPassword(pass);
-            userService.save(userDTO);
+            userService.changePassword(userDTO);
+            model.addAttribute("resultTrue", true);
         } else {
-            return "redirect:changePassword";
+            model.addAttribute("resultFalse", true);
         }
-        return null;
+        return "admin/changePassword";
     }
 
 }

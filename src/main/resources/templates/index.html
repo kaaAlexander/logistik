@@ -1,33 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Logistik app</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+    <meta charset="UTF-8">
+    <title>NOTIFY.BY</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
 <body>
-<div class="container">
-    <div class="text-center">
-        <img th:src="@{/images/login.jpg}" class="rounded" width="300" height="300" alt="Logo"/>
-    </div>
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Авторизуйтесь"></h3>
-        <br/>
-
-        <input type="text" id="email" name="userName" placeholder="Введите Email"
-               class="form-control"/> <br/>
-        <input type="password" placeholder="Введите пароль"
-               id="password" name="password" class="form-control"/> <br/>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">Неверный пароль или Email</p>
+<div class="container wrap-for-background">
+    <div class="row bg-icons">
+        <div class="col-lg-12">
+            <ul>
+                <li class="icon-mail-1"><img th:src="@{images/bg/mail 2.png}" alt=""></li>
+                <li class="icon-mail-2"><img th:src="@{images/bg/mail.png}" alt=""></li>
+                <li class="icon-mail-3"><img th:src="@{images/bg/mail 3.png}" alt=""></li>
+                <li class="plain"><img th:src="@{images/bg/plane.png}" alt=""></li>
+            </ul>
         </div>
-        <button class="btn btn-primary btn-lg btn-block" name="Submit" value="Войти" type="Submit"
-                th:text="Войти"></button>
-    </form>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 d-flex justify-content-center align-items-center parent-form-container">
+            <div class="child-form-container">
+                <div class="heading-box">
+
+                    <form style="visibility: hidden;" th:action="@{/admin/menu}">
+                        <button class="back-button" name="Submit" value="Войти" type="Submit">
+                            назад
+                        </button>
+                    </form>
+
+                    <h1>АВТОРИЗУЙТЕСЬ<br/>
+                        ДЛЯ ВХОДА В СИСТЕМУ</h1></div>
+                <form class="form" th:action="@{/login}" method="POST">
+                    <label></label>
+                    <input type="text" id="email" name="userName" placeholder="Введите e-mail"
+                           class="form-control form-control input-border-bottom"/>
+                    <label></label>
+                    <input type="password" placeholder="Введите пароль"
+                           id="password" name="password" class="form-control form-control input-border-bottom"/>
+                    <!--ERROR BLOCK-->
+                    <div align="center" th:if="${param.error}">
+                        <p style="font-size: 18; color: #FF1C19; padding-top: 0.4em;">!!! Неверный пароль или Email
+                            !!!</p>
+                    </div>
+                    <!--END ERROR BLOCK-->
+                    <!--SUBMIT-->
+                    <input class="btn btn-success my-color-button litle-form-button" name="Submit" value="Войти"
+                           type="Submit">
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

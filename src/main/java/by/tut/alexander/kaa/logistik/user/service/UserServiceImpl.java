@@ -5,7 +5,6 @@ import by.tut.alexander.kaa.logistik.user.repository.model.User;
 import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 import by.tut.alexander.kaa.logistik.user.service.util.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,6 +43,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserByEmail(String email) {
         return userConverter.convert(userRepository.findUserByEmail(email));
+    }
+
+    @Override
+    public void changePassword(UserDTO userDTO) {
+        User user = userConverter.convert(userDTO);
+        userRepository.save(user);
     }
 
     @Override

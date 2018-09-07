@@ -14,14 +14,12 @@ import by.tut.alexander.kaa.logistik.user.repository.UserRepository;
 import by.tut.alexander.kaa.logistik.user.service.UserService;
 import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.*;
 
@@ -80,12 +78,18 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public boolean sendEmail(Long userId, Long customerServiceId, MultipartFile[] files, EmailDTO emailDTO) {
+        String subject;
+        String text;
         boolean status = true;
         TimeZone.setDefault(TimeZone.getTimeZone("UTC+3"));
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
         emailDTO.setCustomerServiceId(customerServiceId);
         UserDTO userDTO = userService.getUserById(userId);
+        subject = ("Компания : " + userDTO.getCompanyName() + "\n" + " УНП : " + userDTO.getUnp() +
+                "\n" + "ФИО : " + userDTO.getName() + "\n" + emailDTO.getSubject());
+        text = subject + "\n" + "Email : " + userDTO.getEmail() + "\n" + "Телефон : " + userDTO.getPhoneNumber() +
+                "\n" + emailDTO.getText();
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
         JavaMailSender mailSender = getServerEmail();
         MimeMessage message = mailSender.createMimeMessage();
@@ -99,43 +103,14 @@ public class EmailServiceImpl implements EmailService {
             for (MultipartFile file : files) {
                 helper.addAttachment(file.getOriginalFilename(), file);
             }
-            helper.setSubject(emailDTO.getSubject());
-            helper.setText(emailDTO.getText());
+            helper.setSubject(subject);
+            helper.setText(text);
             mailSender.send(message);
             saveEmail(emailDTO);
         } catch (Exception e) {
             status = false;
         }
         return status;
-    }
-
-    @Override
-    public boolean sendEmail(Long userId, Long ServiceId, EmailDTO emailDTO) {
-        boolean send = true;
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT+3"));
-        emailDTO.setDate(new Date());
-        emailDTO.setUserId(userId);
-        emailDTO.setCustomerServiceId(ServiceId);
-        emailDTO.setSendingFrom(emailFrom);
-        UserDTO userDTO = userService.getUserById(userId);
-        CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(ServiceId);
-        JavaMailSender mailSender = getServerEmail();
-        MimeMessage message = mailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            message.setHeader("Disposition-Notification-To", userDTO.getEmail());
-            message.setFrom(emailFrom);
-            helper.setTo(customerServiceDTO.getCustomerServiceEmail());
-            helper.setCc(userDTO.getEmail());
-            helper.setCc(emailFrom);
-            message.setSubject(emailDTO.getSubject());
-            message.setText(emailDTO.getText());
-            mailSender.send(message);
-            saveEmail(emailDTO);
-        } catch (Exception e) {
-            send = false;
-        }
-        return send;
     }
 
     @Override

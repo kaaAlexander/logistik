@@ -1,0 +1,207 @@
+@font-face {
+    font-family: 'LogisticCustom';
+    src: url("../fonts/3966.ttf");
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #f6f5f0;
+    position: relative;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: LogisticCustom;
+}
+
+a {
+    list-style: none;
+    color: inherit;
+}
+
+a:hover {
+    list-style: none;
+    color: inherit;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.wrap-for-background {
+    position: relative;
+}
+
+.parent-form-container {
+    position: relative;
+    height: 100vh;
+}
+
+.child-form-container {
+    width: 400px;
+    height: 400px;
+    padding: 2em;
+
+    -webkit-box-shadow: 0px 0px 57px 3px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: 0px 0px 57px 3px rgba(0, 0, 0, 0.37);
+    box-shadow: 0px 0px 57px 3px rgba(0, 0, 0, 0.37);
+    z-index: 200;
+    background-color: #fff;
+    position: relative;
+}
+
+.back-button {
+    position: relative;
+    padding-left: 20px;
+    font-size: 1.4em;
+    color: #a7a7a7;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.back-button > a {
+    cursor: pointer;
+}
+
+.back-button::before {
+    content: "";
+    position: absolute;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    width: 15px;
+    height: 15px;
+    top: 11px;
+    left: 3px;
+    transform: rotate(-45deg);
+}
+
+h1 {
+    font-size: 1.25em;
+    font-weight: 600;
+    line-height: 1.4em;
+    margin-top: 0.8em;
+}
+
+.input-border-bottom {
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    color: #a7a7a7;
+}
+
+.heading-box {
+    width: 100%;
+    height: 30%;
+}
+
+.form {
+    width: 100%;
+    height: 70%;
+    padding-top: 2em;
+    position: relative;
+
+}
+
+.my-color-button {
+    position: absolute;
+    bottom: 0;
+    background-color: #21e09d;
+    border-color: #21e09d;
+    border-radius: 15px;
+    margin-top: 5em;
+
+    -webkit-box-shadow: 0px 0px 27px 3px rgba(33, 224, 157, 0.3);
+    -moz-box-shadow: 0px 0px 27px 3px rgba(33, 224, 157, 0.3);
+    box-shadow: 0px 0px 27px 3px rgba(33, 224, 157, 0.3);
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #45c395;
+    border-color: #40837d;
+}
+
+.btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show > .btn-success.dropdown-toggle {
+    color: #fff;
+    background-color: #285f5d;
+    border-color: #285f5d;
+}
+
+.litle-form-button {
+    width: 100%;
+}
+
+.bg-icons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.bg-icons > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.bg-icons > div > ul {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.bg-icons > div > ul > li {
+    position: absolute;
+}
+
+.bg-icons > div > ul > li > img {
+    width: 100%;
+}
+
+li.icon-mail-1 {
+    width: 4.8em;
+    top: 51%;
+    left: 10%;
+}
+
+.icon-mail-2 {
+    width: 9em;
+    top: 33%;
+    left: 12%;
+}
+
+.icon-mail-3 {
+    width: 3.9em;
+    top: 46%;
+    left: 18%;
+}
+
+.plain {
+    right: 18%;
+    top: 49.6%;
+    width: 11em;
+}
+
+.form-control:focus {
+    color: #a7a7a7;
+    background-color: #fff;
+    border-color: #21e09d;
+    outline: 0;
+    /*box-shadow: 0 0 0 0.2rem rgba(89, 202, 170, 0.25);*/
+    -webkit-box-shadow: 0px 2px 0px 0px rgba(33, 224, 157, 0.5);
+    -moz-box-shadow: 0px 2px 0px 0px rgba(33, 224, 157, 0.5);
+    box-shadow: 0px 2px 0px 0px rgba(33, 224, 157, 0.5);
+}

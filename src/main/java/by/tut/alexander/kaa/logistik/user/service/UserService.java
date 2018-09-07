@@ -15,6 +15,8 @@ public interface UserService {
 
     UserDTO getUserByEmail(String email);
 
+    void changePassword(UserDTO userDTO);
+
     Long save(UserDTO userDTO);
 
     List<UserDTO> findUserByEmail(String email);

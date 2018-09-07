@@ -7,11 +7,9 @@ import by.tut.alexander.kaa.logistik.customerService.service.util.CustomerServic
 import by.tut.alexander.kaa.logistik.email.repository.EmailRepository;
 import by.tut.alexander.kaa.logistik.email.repository.model.Email;
 import by.tut.alexander.kaa.logistik.exitPoint.repository.ExitPointRepository;
-import by.tut.alexander.kaa.logistik.exitPoint.service.ExitPointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

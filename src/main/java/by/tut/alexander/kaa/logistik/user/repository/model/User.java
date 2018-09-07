@@ -1,13 +1,11 @@
 package by.tut.alexander.kaa.logistik.user.repository.model;
 
 import by.tut.alexander.kaa.logistik.email.repository.model.Email;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * Created by GM on 30.08.2018.
@@ -34,7 +32,7 @@ public class User implements Serializable {
     private String password;
     @Column(name = "role")
     private String role;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Email> emailList;
 
 

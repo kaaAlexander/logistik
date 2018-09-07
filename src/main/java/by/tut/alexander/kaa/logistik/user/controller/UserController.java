@@ -5,9 +5,6 @@ import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.List;
-
 /**
  * Created by GM on 30.08.2018.
  */

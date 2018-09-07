@@ -1,7 +1,5 @@
 package by.tut.alexander.kaa.logistik.user.service.modelDTO;
 
-import org.springframework.security.core.GrantedAuthority;
-
 /**
  * Created by GM on 30.08.2018.
  */

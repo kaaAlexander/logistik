@@ -1,6 +1,5 @@
 package by.tut.alexander.kaa.logistik.user.controller;
 
-import by.tut.alexander.kaa.logistik.country.service.modelDTO.CountryDTO;
 import by.tut.alexander.kaa.logistik.user.service.UserService;
 import by.tut.alexander.kaa.logistik.user.service.modelDTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;

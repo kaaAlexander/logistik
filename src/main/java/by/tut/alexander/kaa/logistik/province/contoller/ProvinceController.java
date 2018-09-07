@@ -1,6 +1,5 @@
 package by.tut.alexander.kaa.logistik.province.contoller;
 
-import by.tut.alexander.kaa.logistik.country.service.modelDTO.CountryDTO;
 import by.tut.alexander.kaa.logistik.province.service.ModelDTO.ProvinceDTO;
 import by.tut.alexander.kaa.logistik.province.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
