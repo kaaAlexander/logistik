@@ -7,6 +7,7 @@ public class EmailDTO {
     private Long userId;
     private Long CustomerServiceId;
     private Date date;
+    private String serverEmailName;
     private String customerServiceName;
     private String customerServiceEmail;
     private String sendingFrom;
@@ -83,5 +84,13 @@ public class EmailDTO {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getServerEmailName() {
+        return serverEmailName;
+    }
+
+    public void setServerEmailName(String serverEmailName) {
+        this.serverEmailName = serverEmailName;
     }
 }

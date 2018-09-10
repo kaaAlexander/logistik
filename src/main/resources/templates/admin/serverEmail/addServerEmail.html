@@ -1,60 +1,105 @@
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>NOTIFY.BY</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
-
 <body>
-<div class="container wrap-for-background">
-    <div class="row bg-icons">
-        <div class="col-lg-12">
-            <ul>
-                <li class="icon-mail-1"><img th:src="@{../images/bg/mail 2.png}" alt=""></li>
-                <li class="icon-mail-2"><img th:src="@{../images/bg/mail.png}" alt=""></li>
-                <li class="icon-mail-3"><img th:src="@{../images/bg/mail 3.png}" alt=""></li>
-                <li class="plain"><img th:src="@{../images/bg/plane.png}" alt=""></li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 d-flex justify-content-center align-items-center parent-form-container">
-            <div class="child-form-container">
-                <div class="heading-box">
-                    <div class="back-button">
-                        <a th:href="@{'serverEmail'}" class="">назад</a>
-                    </div>
-                    <h1>ДОБАВЬТЕ ПОЧТУ В<br/>КАТЕГОРИЮ ПРИЛОЖЕНИЯ</h1></div>
-                <form class="form" action="#" th:action="@{/admin/addServerEmail}" th:object="${serverEmail}"
-                      method="post">
-                    <label></label>
-                    <input type="text" class="form-control form-control input-border-bottom" id="email"
-                           th:field="*{email}"
-                           placeholder="Введите Email" required>
-                    <br>
-                    <input type="text" class="form-control form-control input-border-bottom" id="password"
-                           th:field="*{password}"
-                           placeholder="Введите пароль" required>
-                    <br>
-                    <input type="text" class="form-control form-control input-border-bottom" id="smtp"
-                           th:field="*{smtp}"
-                           placeholder="Введите SMTP" required>
-                    <br>
-                    <input type="text" class="form-control form-control input-border-bottom" id="port"
-                           th:field="*{port}"
-                           placeholder="Введите порт" required>
-                    <br>
-                    <input type="text" class="form-control form-control input-border-bottom" id="ssl"
-                           th:field="*{ssl}"
-                           placeholder="Введите SSL" required>
-                    <input type="submit" class="btn btn-success my-color-button litle-form-button" value="Добавить">
-                </form>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+                <div class="heading-button">
+                    <h1 id="main-heading">Почта для отправки</h1>
+                    <button class="back-button back-button-right" name="Submit"
+                            value="Войти" type="Submit">
+                        <a th:href="@{'serverEmail'}">назад</a>
+                    </button>
+                </div>
 
             </div>
         </div>
     </div>
-</div>
+</header>
+<main>
+    <div class="container wrap-for-background">
+        <div class="row bg-icons">
+            <div class="col-lg-12">
+                <ul>
+                    <li class="icon-mail-1"><img th:src="@{../images/bg/mail 2.png}" alt=""></li>
+                    <li class="icon-mail-2"><img th:src="@{../images/bg/mail.png}" alt=""></li>
+                    <li class="icon-mail-3"><img th:src="@{../images/bg/mail 3.png}" alt=""></li>
+                    <li class="plain"><img th:src="@{../images/bg/plane.png}" alt=""></li>
+                </ul>
+            </div>
+        </div><!--bg-icons-END-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside id="menu-navigation" class="menu-navigation">
+                        <a th:href="@{'/admin/countryList'}">
+                            <p>Категории</p>
+                        </a>
+                        <a th:href="@{'/admin/userList'}">
+                            <p>Список пользователей</p>
+                        </a>
+                        <a th:href="@{'/admin/statistic'}">
+                            <p>Статистика</p>
+                        </a>
+                        <a th:href="@{'/admin/serverEmail'}">
+                            <p>Управление почтой</p>
+                        </a>
+                        <a th:href="@{'/admin/changePassword'}">
+                            <p>Сменить пароль</p>
+                        </a>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+                    <div class="search-users">
+                        <h3>Добавление почты</h3>
+                        <hr>
+                        <form th:action="@{/admin/addServerEmail}" th:object="${serverEmail}"
+                              method="post">
+                            <label>адрес: </label>
+                            <input type="email" placeholder="введите адрес"
+                                   class="form-control input-border-bottom long-input-list" id="title"
+                                   th:field="*{email}">
+
+                            <label>пароль: </label>
+                            <input type="text" placeholder="введите пароль"
+                                   class="form-control input-border-bottom long-input-list"
+                                   id="password" th:field="*{password}">
+
+
+                            <label>SMTP: </label>
+                            <input type="text" placeholder="введите SMTP"
+                                   class="form-control input-border-bottom long-input-list"
+                                   id="smtp" th:field="*{smtp}">
+
+                            <label>Порт: </label>
+                            <input type="text" placeholder="введите порт"
+                                   class="form-control input-border-bottom long-input-list"
+                                   id="port" th:field="*{port}">
+
+                            <label>SSL: </label>
+                            <input type="text" placeholder="false"
+                                   class="form-control input-border-bottom long-input-list"
+                                   id="ssl" th:field="*{ssl}">
+
+
+                            <input type="submit" value="ДОБАВИТЬ" class="btn btn-success sq-button-small">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script th:src="@{../js/js.js}"></script>
 </body>
 </html>

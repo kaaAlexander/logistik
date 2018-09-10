@@ -78,7 +78,7 @@
                                 <td th:text="${customerService.customerServiceEmail}"/>
                                 <td><a th:href="@{'deleteCustomerService'(customerServiceId=${customerService.id},
                 exitPointId=${exitPointId}, provinceId=${provinceId}, provinceName=${provinceName},
-                countryId=${countryId},countryName=${countryName})}">Удалить</a></td>
+                countryId=${countryId},countryName=${countryName})}" style="color:red;">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>

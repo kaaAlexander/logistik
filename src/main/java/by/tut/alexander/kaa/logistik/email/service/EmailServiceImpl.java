@@ -51,6 +51,7 @@ public class EmailServiceImpl implements EmailService {
     private Integer count = 0;
     private String emailFrom;
     private Long serverEmailId;
+    private String serverEmailName;
 
 
     private JavaMailSender getServerEmail() {
@@ -71,6 +72,7 @@ public class EmailServiceImpl implements EmailService {
         props.put("mail.debug", "true");
         props.put("mail.smtp.ssl.enable", serverEmailDTO.isSsl());
         count = count + 1;
+        serverEmailName = serverEmailDTO.getEmail();
         emailFrom = serverEmailDTO.getEmail();
         serverEmailId = serverEmailDTO.getId();
         return mailSender;
@@ -84,7 +86,6 @@ public class EmailServiceImpl implements EmailService {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC+3"));
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
-        emailDTO.setCustomerServiceId(customerServiceId);
         UserDTO userDTO = userService.getUserById(userId);
         subject = ("Компания : " + userDTO.getCompanyName() + "    \n" + "УНП : " + userDTO.getUnp() +
                 "    \n" + "ФИО : " + userDTO.getName() + "    \n" + emailDTO.getSubject());
@@ -92,6 +93,8 @@ public class EmailServiceImpl implements EmailService {
                 "\n" + emailDTO.getText();
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
         JavaMailSender mailSender = getServerEmail();
+        emailDTO.setCustomerServiceId(customerServiceId);
+        emailDTO.setServerEmailName(serverEmailName);
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -118,7 +121,7 @@ public class EmailServiceImpl implements EmailService {
         Email email = emailConverter.convert(emailDTO);
         email.setUser(userRepository.findUserById(emailDTO.getUserId()));
         email.setCustomerService(customerServiceRepository.findOneById(emailDTO.getCustomerServiceId()));
-        email.setServerEmail(serverEmailRepository.findOneById(serverEmailId));
+        email.setServerEmailName(emailDTO.getServerEmailName());
         emailRepository.save(email);
     }
 

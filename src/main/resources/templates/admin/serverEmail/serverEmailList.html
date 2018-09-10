@@ -81,7 +81,7 @@
                                 <td th:text="${email.smtp}"/>
                                 <td th:text="${email.port}"/>
                                 <td th:text="${email.ssl}"/>
-                                <td><a th:href="@{'deleteServerEmail'(emailId=${email.id})}">Удалить</a></td>
+                                <td  class="deleteLink"><a th:href="@{'deleteServerEmail'(emailId=${email.id})}" style="color:red;">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>

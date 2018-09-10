@@ -3,32 +3,88 @@
     <meta charset="UTF-8">
     <title>NOTIFY.BY</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div style="text-align:center; margin:10px">
-    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
-    <a th:href="@{'userList'}" class=" btn btn-primary btn-lg">Список Пользователей</a>
+<header>
     <div class="container">
-        <h4>Отправленные письма : </h4>
-        <table class="table table-sm" style="text-align:center" id="countryTable">
-            <thead class="thead-dark">
-            <tr>
-                <th>Компания получатель</th>
-                <th>Email</th>
-                <th>Дата отправки</th>
-                <th>Адрес отправки</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="email:${emailList}">
-                <td th:text="${email.customerServiceName}"/>
-                <td th:text="${email.customerServiceEmail}"/>
-                <td th:text="${email.date}"/>
-                <td th:text="${email.sendingFrom}"/>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+                <div class="heading-button">
+                    <h1 id="main-heading">Информация по пользователю</h1>
+                    <button
+                            class="back-button back-button-right" name="Submit" value="Войти" type="Submit">
+                        <a th:href="@{'userList'}">назад</a>
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
+</header>
+<main>
+    <div class="container wrap-for-background">
+        <div class="row bg-icons">
+            <div class="col-lg-12">
+                <ul>
+                    <li class="icon-mail-1"><img th:src="@{../images/bg/mail 2.png}" alt=""></li>
+                    <li class="icon-mail-2"><img th:src="@{../images/bg/mail.png}" alt=""></li>
+                    <li class="icon-mail-3"><img th:src="@{../images/bg/mail 3.png}" alt=""></li>
+                    <li class="plain"><img th:src="@{../images/bg/plane.png}" alt=""></li>
+                </ul>
+            </div>
+        </div><!--bg-icons-END-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside id="menu-navigation" class="menu-navigation">
+                        <a th:href="@{'/admin/countryList'}">
+                            <p>Категории</p>
+                        </a>
+                        <a th:href="@{'/admin/userList'}">
+                            <p>Список пользователей</p>
+                        </a>
+                        <a th:href="@{'/admin/statistic'}">
+                            <p>Статистика</p>
+                        </a>
+                        <a th:href="@{'/admin/serverEmail'}">
+                            <p>Управление почтой</p>
+                        </a>
+                        <a th:href="@{'/admin/changePassword'}">
+                            <p>Сменить пароль</p>
+                        </a>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+
+                    <div class="list-users single-block">
+                        <table class="my-table statistic-table-body" style="text-align:center" id="countryTable">
+                            <thead>
+                            <tr>
+                                <th>Компания получатель</th>
+                                <th>E-mail плучателя</th>
+                                <th>Дата отправки</th>
+                                <th>Почта отправки</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="email:${emailList}">
+                                <td th:text="${email.customerServiceName}"/>
+                                <td th:text="${email.customerServiceEmail}"/>
+                                <td th:text="${email.date}"/>
+                                <td th:text="${email.sendingFrom}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script th:src="@{../js/js.js}"></script>
 </body>
 </html>

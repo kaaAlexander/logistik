@@ -80,7 +80,7 @@
                 provinceName=${province.provinceName},countryId=${countryId},countryName=${countryName})}">Перейти
                                         в список переходов</a></td>
                                 <td>
-                                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}">Удалить</a>
+                                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}" style="color:red;">Удалить</a>
                                 </td>
                             </tr>
                             </tbody>

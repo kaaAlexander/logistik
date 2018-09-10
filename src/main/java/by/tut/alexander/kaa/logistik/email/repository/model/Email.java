@@ -23,9 +23,7 @@ public class Email implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_service_id")
     private CustomerService customerService;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "server_email_id")
-    private ServerEmail serverEmail;
+    private String serverEmailName;
 
     public Long getId() {
         return id;
@@ -59,11 +57,11 @@ public class Email implements Serializable {
         this.customerService = customerService;
     }
 
-    public ServerEmail getServerEmail() {
-        return serverEmail;
+    public String getServerEmailName() {
+        return serverEmailName;
     }
 
-    public void setServerEmail(ServerEmail serverEmail) {
-        this.serverEmail = serverEmail;
+    public void setServerEmailName(String serverEmailName) {
+        this.serverEmailName = serverEmailName;
     }
 }

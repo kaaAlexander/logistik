@@ -70,7 +70,7 @@
                         </form>
                     </div>
                     <div class="list-users">
-                        <table class="table" style="text-align:center" id="countryTable">
+                        <table class="my-table" style="text-align:center" id="countryTable">
                             <thead class="">
                             <tr>
                                 <th>Email</th>
@@ -89,7 +89,8 @@
                                 <td th:text="${user.companyName}"/>
                                 <td th:text="${user.unp}"/>
                                 <td th:text="${user.phoneNumber}"/>
-                                <td class="link-info-about-user"><a th:href="@{'userInfo'(userId=${user.id})}">Информация</a>
+                                <td>
+                                    <a th:href="@{'userInfo'(userId=${user.id})}" class="link-info-about-user">Информация</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -101,6 +102,6 @@
 
     </div>
 </main>
-<script src="../../../static/js/js.js"></script>
+<script th:src="@{../js/js.js}"></script>
 </body>
 </html>

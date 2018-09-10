@@ -79,7 +79,7 @@
                                     <a th:href="@{'provinceList'(countryId=${country.id}, countryName=${country.countryName})}">Перейти
                                         в список областей</a></td>
                                 <td>
-                                    <a th:href="@{'deleteCountry'(countryId=${country.id})}">Удалить</a></td>
+                                    <a th:href="@{'deleteCountry'(countryId=${country.id})}" style="color:red;">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>

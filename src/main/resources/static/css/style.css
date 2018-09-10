@@ -366,6 +366,9 @@ hr {
     text-decoration: underline;
     cursor: pointer;
 }
+.link-info-about-user:hover {
+    color :#45c395;
+}
 
 /*.short-input-list {*/
 /*width: 45%;*/
@@ -417,8 +420,12 @@ hr {
     cursor: pointer;
 }
 
+
 .category-land tbody tr td > a {
     color: #21e09d;
     text-decoration: underline;
+}
+.category-land tbody tr td .deleteLink {
+    color:red;
 }
 

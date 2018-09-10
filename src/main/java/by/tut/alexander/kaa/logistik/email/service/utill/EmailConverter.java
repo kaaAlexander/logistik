@@ -9,6 +9,7 @@ public class EmailConverter {
         Email email = new Email();
         email.setId(emailDTO.getId());
         email.setDate(emailDTO.getDate());
+        email.setServerEmailName(emailDTO.getServerEmailName());
         return email;
     }
 
@@ -19,7 +20,7 @@ public class EmailConverter {
         emailDTO.setDate(email.getDate());
         emailDTO.setCustomerServiceName(email.getCustomerService().getCustomerServiceName());
         emailDTO.setCustomerServiceEmail(email.getCustomerService().getCustomerServiceEmail());
-        emailDTO.setSendingFrom(email.getServerEmail().getEmail());
+        emailDTO.setSendingFrom(email.getServerEmailName());
         return emailDTO;
     }
 }
