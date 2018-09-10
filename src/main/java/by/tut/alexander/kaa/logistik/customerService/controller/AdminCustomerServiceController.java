@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,9 @@ public class AdminCustomerServiceController {
                                          @RequestParam("countryName") String countryName,
                                          Model model) {
         List<CustomerServiceDTO> customerServiceDTOList = customerServiceService.findCustomerServiceByExitPointId(exitPointId);
+        if (customerServiceDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("customerServices", customerServiceDTOList);
         model.addAttribute("provinceId", provinceId);
         model.addAttribute("provinceName", provinceName);
@@ -89,8 +93,12 @@ public class AdminCustomerServiceController {
 
     @GetMapping("/statistic")
     public String getAllCustomersService(Model model) {
+        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
+        if (customerServiceDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("customerService", new CustomerServiceDTO());
-        model.addAttribute("customerServiceList", customerServiceService.getAllCustomerService());
+        model.addAttribute("customerServiceList", customerServiceDTOList);
         return "admin/statistic";
     }
 
@@ -113,6 +121,11 @@ public class AdminCustomerServiceController {
                         .getCustomerServiceByEmailAndFromDate(customerServiceDTO.getCustomerServiceEmail(), customerServiceDTO.getFromDate());
             }
             if (customerServiceDTO.getByDate() != null && customerServiceDTO.getFromDate() != null) {
+                if (customerServiceDTO.getFromDate().after(customerServiceDTO.getByDate())) {
+                    Date date = customerServiceDTO.getFromDate();
+                    customerServiceDTO.setFromDate(customerServiceDTO.getByDate());
+                    customerServiceDTO.setByDate(date);
+                }
                 customerServiceDTOList = customerServiceService
                         .getCustomerServiceByEmailAndFromDateAndByDate(customerServiceDTO.getCustomerServiceEmail()
                                 , customerServiceDTO.getFromDate(), customerServiceDTO.getByDate());
@@ -128,11 +141,19 @@ public class AdminCustomerServiceController {
                         .getCustomerServiceByFromDate(customerServiceDTO.getFromDate());
             }
             if (customerServiceDTO.getByDate() != null && customerServiceDTO.getFromDate() != null) {
+                if (customerServiceDTO.getFromDate().after(customerServiceDTO.getByDate())) {
+                    Date date = customerServiceDTO.getFromDate();
+                    customerServiceDTO.setFromDate(customerServiceDTO.getByDate());
+                    customerServiceDTO.setByDate(date);
+                }
                 customerServiceDTOList = customerServiceService
                         .getCustomerServiceByFromDateAndByDate(customerServiceDTO.getFromDate(), customerServiceDTO.getByDate());
             }
 
 
+        }
+        if (customerServiceDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
         }
         model.addAttribute("customerServiceList", customerServiceDTOList);
         return "admin/statistic";

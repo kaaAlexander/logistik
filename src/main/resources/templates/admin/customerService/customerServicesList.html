@@ -14,12 +14,14 @@
             <div class="col-lg-9">
                 <div class="heading-button">
                     <h1 id="main-heading">Организации</h1>
-                    <button class="btn btn-success sq-button-small add-button-big"
-                            name="Submit" value="Войти"
-                            type="Submit">
-                        <a th:href="@{'addCustomerService'(exitPointId=${exitPointId},provinceId=${provinceId}, provinceName=${provinceName},
-                countryId=${countryId},countryName=${countryName})}">ДОБАВИТЬ</a>
-                    </button>
+                    <a th:href="@{'addCustomerService'(exitPointId=${exitPointId},provinceId=${provinceId}, provinceName=${provinceName},
+                countryId=${countryId},countryName=${countryName})}">
+                        <button class="btn btn-success sq-button-small add-button-big"
+                                name="Submit" value="Войти"
+                                type="Submit">
+                            ДОБАВИТЬ
+                        </button>
+                    </a>
                 </div>
 
             </div>
@@ -66,6 +68,11 @@
                         <table class="my-table statistic-table-body email-for-sending-list category-land"
                                style="text-align:center" id="countryTable">
                             <thead>
+                            <tr>
+                                <th colspan="3" th:if="${resultFalse}" style="font-size: 18px;padding-top: 0.4em;">
+                                    Ничего не найдено!
+                                </th>
+                            </tr>
                             <tr>
                                 <th>Организация</th>
                                 <th>Email</th>

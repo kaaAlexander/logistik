@@ -14,11 +14,13 @@
             <div class="col-lg-9">
                 <div class="heading-button">
                     <h1 id="main-heading">Категории</h1>
-                    <button class="btn btn-success sq-button-small add-button-big"
-                            name="Submit" value="Войти"
-                            type="Submit">
-                        <a th:href="@{'addCountry'}">ДОБАВИТЬ</a>
-                    </button>
+                    <a th:href="@{'addCountry'}">
+                        <button class="btn btn-success sq-button-small add-button-big"
+                                name="Submit" value="Войти"
+                                type="Submit">
+                            ДОБАВИТЬ
+                        </button>
+                    </a>
                 </div>
 
             </div>
@@ -73,13 +75,19 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <th colspan="3" th:if="${resultFalse}" style="font-size: 18px;padding-top: 0.4em;">
+                                    Ничего не найдено!
+                                </th>
+                            </tr>
                             <tr th:each="country:${countries}">
                                 <td th:text="${country.countryName}"></td>
                                 <td>
                                     <a th:href="@{'provinceList'(countryId=${country.id}, countryName=${country.countryName})}">Перейти
                                         в список областей</a></td>
                                 <td>
-                                    <a th:href="@{'deleteCountry'(countryId=${country.id})}" style="color:red;">Удалить</a></td>
+                                    <a th:href="@{'deleteCountry'(countryId=${country.id})}"
+                                       style="color:red;">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>

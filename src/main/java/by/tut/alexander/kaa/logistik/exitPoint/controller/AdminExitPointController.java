@@ -25,6 +25,9 @@ public class AdminExitPointController {
                                     @RequestParam("countryName") String countryName,
                                     Model model) {
         List<ExitPointDTO> exitPointDTOList = exitPointService.getExitPointByProvinceId(provinceId);
+        if (exitPointDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("provinceId", provinceId);
         model.addAttribute("provinceName", provinceName);
         model.addAttribute("countryId", countryId);

@@ -82,7 +82,11 @@
                             </tr>
                             </thead>
                             <tbody>
-
+                            <tr>
+                                <th colspan="6" th:if="${resultFalse}" style="font-size: 18px;padding-top: 0.4em;">
+                                    Ничего не найдено!
+                                </th>
+                            </tr>
                             <tr th:each="user:${users}">
                                 <td th:text="${user.email}"/>
                                 <td th:text="${user.name}"/>

@@ -20,6 +20,9 @@ public class AdminUserController {
     @GetMapping("/userList")
     public String findAllCountries(Model model) {
         List<UserDTO> userDTOList = userService.getAllUsers();
+        if (userDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("userFilter", new UserDTO());
         model.addAttribute("users", userDTOList);
         return "admin/user/userList";
@@ -39,6 +42,9 @@ public class AdminUserController {
         }
         if (userDTO.getEmail().equals("") && userDTO.getPhoneNumber().equals("")) {
             return "redirect:userList";
+        }
+        if (userDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
         }
         model.addAttribute("users", userDTOList);
         return "admin/user/userList";

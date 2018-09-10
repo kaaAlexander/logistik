@@ -14,11 +14,13 @@
             <div class="col-lg-9">
                 <div class="heading-button">
                     <h1 id="main-heading">Области</h1>
-                    <button class="btn btn-success sq-button-small add-button-big"
-                            name="Submit" value="Войти"
-                            type="Submit">
-                        <a th:href="@{'addProvince'(countryId=${countryId},countryName=${countryName})}">ДОБАВИТЬ</a>
-                    </button>
+                    <a th:href="@{'addProvince'(countryId=${countryId},countryName=${countryName})}">
+                        <button class="btn btn-success sq-button-small add-button-big"
+                                name="Submit" value="Войти"
+                                type="Submit">
+                            ДОБАВИТЬ
+                        </button>
+                    </a>
                 </div>
 
             </div>
@@ -73,6 +75,11 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <th colspan="3" th:if="${resultFalse}" style="font-size: 18px;padding-top: 0.4em;">
+                                    Ничего не найдено!
+                                </th>
+                            </tr>
                             <tr th:each="province : ${provinceList}">
                                 <td th:text="${province.provinceName}"></td>
                                 <td>
@@ -80,7 +87,8 @@
                 provinceName=${province.provinceName},countryId=${countryId},countryName=${countryName})}">Перейти
                                         в список переходов</a></td>
                                 <td>
-                                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}" style="color:red;">Удалить</a>
+                                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}"
+                                       style="color:red;">Удалить</a>
                                 </td>
                             </tr>
                             </tbody>

@@ -21,6 +21,9 @@ public class AdminCountryController {
     @GetMapping("/countryList")
     public String findAllCountries(Model model) {
         List<CountryDTO> countryDTOList = countryService.getAllCountries();
+        if (countryDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("countries", countryDTOList);
         return "admin/country/countryList";
     }

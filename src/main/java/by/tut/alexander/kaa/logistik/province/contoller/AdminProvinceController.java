@@ -24,6 +24,9 @@ public class AdminProvinceController {
     public String getProvinceByCountryId(@RequestParam("countryId") Long id, @RequestParam("countryName") String countryName,
                                          Model model) {
         List<ProvinceDTO> provinceDTOList = provinceService.getProvinceByCountryId(id);
+        if (provinceDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("provinceList", provinceDTOList);
         model.addAttribute("countryId", id);
         model.addAttribute("countryName", countryName);

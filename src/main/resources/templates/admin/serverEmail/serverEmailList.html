@@ -14,11 +14,13 @@
             <div class="col-lg-9">
                 <div class="heading-button">
                     <h1 id="main-heading">Почты</h1>
-                    <button class="btn btn-success sq-button-small add-button-big"
-                            name="Submit" value="Войти"
-                            type="Submit">
-                        <a th:href="@{'addServerEmail'}">ДОБАВИТЬ</a>
-                    </button>
+                    <a th:href="@{'addServerEmail'}">
+                        <button class="btn btn-success sq-button-small add-button-big"
+                                name="Submit" value="Войти"
+                                type="Submit">
+                            ДОБАВИТЬ
+                        </button>
+                    </a>
                 </div>
 
             </div>
@@ -75,13 +77,19 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <th colspan="6" th:if="${resultFalse}" style="font-size: 18px;padding-top: 0.4em;">
+                                    Ничего не найдено!
+                                </th>
+                            </tr>
                             <tr th:each="email:${serverEmailList}">
                                 <td th:text="${email.email}"/>
                                 <td th:text="${email.password}"/>
                                 <td th:text="${email.smtp}"/>
                                 <td th:text="${email.port}"/>
                                 <td th:text="${email.ssl}"/>
-                                <td  class="deleteLink"><a th:href="@{'deleteServerEmail'(emailId=${email.id})}" style="color:red;">Удалить</a></td>
+                                <td class="deleteLink"><a th:href="@{'deleteServerEmail'(emailId=${email.id})}"
+                                                          style="color:red;">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>

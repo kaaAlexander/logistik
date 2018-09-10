@@ -20,6 +20,9 @@ public class AdminServerEmailController {
     @GetMapping("/serverEmail")
     public String findAllServerEmail(Model model) {
         List<ServerEmailDTO> serverEmailDTOList = serverEmailService.getAllServerEmail();
+        if (serverEmailDTOList.isEmpty()) {
+            model.addAttribute("resultFalse", true);
+        }
         model.addAttribute("serverEmailList", serverEmailDTOList);
         return "admin/serverEmail/serverEmailList";
     }
