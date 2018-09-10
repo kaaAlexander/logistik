@@ -1,44 +1,107 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Logistik</title>
+    <title>NOTIFY.BY</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div style="text-align:center; margin:10px">
-    <a th:href="@{'menu'}" class=" btn btn-primary btn-lg">Меню</a>
+<header>
     <div class="container">
-        <form th:action="@{/admin/statistic}" th:object="${customerService}" method="post">
-            <h6>Искать по:</h6>
-            <div class="form-group row">
-                <label for="title" class="col-sm-2 col-form-label col-form-label">Email : </label>
-                <input type="email" class="form-control form-control" id="title" th:field="*{customerServiceEmail}"
-                       placeholder="введите Email"/>
-                <label for="fromDate" class="col-sm-2 col-form-label col-form-label">C даты </label>
-                <input type="date" class="form-control form-control" id="fromDate" th:field="*{fromDate}"/>
-                <label for="byDate" class="col-sm-2 col-form-label col-form-label">По дату</label>
-                <input type="date" class="form-control form-control" id="byDate" th:field="*{byDate}"/>
-                <input style="margin: 10px" type="submit" class="btn btn-success" value="Искать">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+                <h1 id="main-heading">Статистика</h1>
             </div>
-        </form>
+        </div>
     </div>
-    <div class="container">
-        <h4>Организации : </h4>
-        <table class="table table-sm" style="text-align:center" id="countryTable">
-            <thead class="thead-dark">
-            <tr>
-                <th>Email</th>
-                <th>Количество отправленных писем</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="customerService:${customerServiceList}">
-                <td th:text="${customerService.customerServiceEmail}"/>
-                <td th:text="${customerService.emailCount}"/>
-            </tr>
-            </tbody>
-        </table>
+</header>
+<main>
+    <div class="container wrap-for-background">
+        <div class="row bg-icons">
+            <div class="col-lg-12">
+                <ul>
+                    <li class="icon-mail-1"><img th:src="@{../images/bg/mail 2.png}" alt=""></li>
+                    <li class="icon-mail-2"><img th:src="@{../images/bg/mail.png}" alt=""></li>
+                    <li class="icon-mail-3"><img th:src="@{../images/bg/mail 3.png}" alt=""></li>
+                    <li class="plain"><img th:src="@{../images/bg/plane.png}" alt=""></li>
+                </ul>
+            </div>
+        </div><!--bg-icons-END-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside id="menu-navigation" class="menu-navigation">
+                        <a th:href="@{'/admin/countryList'}">
+                            <p>Категории</p>
+                        </a>
+                        <a th:href="@{'/admin/userList'}">
+                            <p>Список пользователей</p>
+                        </a>
+                        <a th:href="@{'/admin/statistic'}">
+                            <p>Статистика</p>
+                        </a>
+                        <a th:href="@{'/admin/serverEmail'}">
+                            <p>Управление почтой</p>
+                        </a>
+                        <a th:href="@{'/admin/changePassword'}">
+                            <p>Сменить пароль</p>
+                        </a>
+                    </aside>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+                    <div class="search-users">
+                        <h3>Поиск по статистике</h3>
+                        <hr>
+                        <form th:action="@{/admin/statistic}" th:object="${customerService}" method="post">
+                            <label>e-mail</label>
+                            <input type="email" placeholder="введите e-mail"
+                                   class="form-control form-control input-border-bottom long-input-list" id="title"
+                                   th:field="*{customerServiceEmail}">
+
+
+                            <div class="d-flex wrapper-short-input-list">
+                                <label>с даты: </label>
+                                <input type="date"
+                                       class="form-control input-border-bottom"
+                                       id="fromDate" th:field="*{fromDate}">
+
+
+                                <label>по дату:</label>
+                                <input type="date"
+                                       class="form-control input-border-bottom"
+                                       id="byDate" th:field="*{byDate}">
+
+                            </div>
+
+                            <input type="submit" value="ПОИСК" class="btn btn-success sq-button-small">
+
+                        </form>
+                    </div>
+                    <div class="list-users">
+                        <table class="my-table statistic-table-body" style="text-align:center" id="countryTable">
+                            <thead>
+                            <tr>
+                                <th>Наименование</th>
+                                <th>Количество отправленных писем</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="customerService:${customerServiceList}">
+                                <td th:text="${customerService.customerServiceEmail}"/>
+                                <td th:text="${customerService.emailCount}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+</main>
+<script src="../../static/js/js.js"></script>
 </body>
 </html>

@@ -1,38 +1,97 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Logistik</title>
+    <meta charset="UTF-8">
+    <title>NOTIFY.BY</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div style="text-align:center; margin:10px">
-    <a th:href="@{'countryList'}" class=" btn btn-primary btn-lg">Список стран</a>
-    <a th:href="@{'addProvince'(countryId=${countryId},countryName=${countryName})}" class=" btn btn-primary btn-lg">Добавить
-        область</a>
+<header>
     <div class="container">
-        <h4>Список областей для <span th:text="${name}"></span></h4>
-        <table class="table table-sm" style="text-align:center" id="provinceTable">
-            <thead class="thead-dark">
-            <tr>
-                <th>Область :</th>
-                <th colspan="3">Действия :</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="province:${provinceList}">
-                <td th:text="${province.provinceName}"/>
-                <td><a th:href="@{'exitPointList'(provinceId=${province.id},
-                provinceName=${province.provinceName},countryId=${countryId},countryName=${countryName})}"
-                       class=" btn btn-sm btn-success">Пункты
-                    перехода</a>
-                </td>
-                <td>
-                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}"
-                       class=" btn btn-sm btn-danger">Удалить область</a></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+                <div class="heading-button">
+                    <h1 id="main-heading">Области</h1>
+                    <button class="btn btn-success sq-button-small add-button-big"
+                            name="Submit" value="Войти"
+                            type="Submit">
+                        <a th:href="@{'addProvince'(countryId=${countryId},countryName=${countryName})}">ДОБАВИТЬ</a>
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
+</header>
+<main>
+    <div class="container wrap-for-background">
+        <div class="row bg-icons">
+            <div class="col-lg-12">
+                <ul>
+                    <li class="icon-mail-1"><img th:src="@{../images/bg/mail 2.png}" alt=""></li>
+                    <li class="icon-mail-2"><img th:src="@{../images/bg/mail.png}" alt=""></li>
+                    <li class="icon-mail-3"><img th:src="@{../images/bg/mail 3.png}" alt=""></li>
+                    <li class="plain"><img th:src="@{../images/bg/plane.png}" alt=""></li>
+                </ul>
+            </div>
+        </div><!--bg-icons-END-->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <aside id="menu-navigation" class="menu-navigation">
+                        <a th:href="@{'/admin/countryList'}">
+                            <p>Категории</p>
+                        </a>
+                        <a th:href="@{'/admin/userList'}">
+                            <p>Список пользователей</p>
+                        </a>
+                        <a th:href="@{'/admin/statistic'}">
+                            <p>Статистика</p>
+                        </a>
+                        <a th:href="@{'/admin/serverEmail'}">
+                            <p>Управление почтой</p>
+                        </a>
+                        <a th:href="@{'/admin/changePassword'}">
+                            <p>Сменить пароль</p>
+                        </a>
+                    </aside>
+                </div>
+                <div class="col-lg-9">
+
+                    <div class="list-users single-block">
+                        <table class="my-table statistic-table-body email-for-sending-list category-land"
+                               style="text-align:center" id="countryTable">
+                            <thead>
+                            <tr>
+                                <th>Область</th>
+                                <th>Действия</th>
+                                <th></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="province : ${provinceList}">
+                                <td th:text="${province.provinceName}"></td>
+                                <td>
+                                    <a th:href="@{'exitPointList'(provinceId=${province.id},
+                provinceName=${province.provinceName},countryId=${countryId},countryName=${countryName})}">Перейти
+                                        в список переходов</a></td>
+                                <td>
+                                    <a th:href="@{'deleteProvince'(provinceId=${province.id},countryId=${countryId},countryName=${countryName})}">Удалить</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script th:src="@{../js/js.js}"></script>
 </body>
 </html>
