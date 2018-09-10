@@ -1,0 +1,17 @@
+login : logistik.application@gmail.com
+password : logistikadmin
+smtp: smtp.gmail.com
+port: 587
+ssl: false
+
+login : logistik.application@mail.ru
+password : 789logistik
+smtp: smtp.mail.ru
+port: 465
+ssl: true
+
+login : logistik.appliocation@yandex.ru
+password : logistik
+smtp: smtp.yandex.ru
+port: 465
+ssl: true
