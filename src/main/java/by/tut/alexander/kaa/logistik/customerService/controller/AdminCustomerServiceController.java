@@ -93,7 +93,7 @@ public class AdminCustomerServiceController {
 
     @GetMapping("/statistic")
     public String getAllCustomersService(Model model) {
-        List<CustomerServiceDTO> customerServiceDTOList = new ArrayList<>();
+        List<CustomerServiceDTO> customerServiceDTOList = customerServiceService.getAllCustomerService();
         if (customerServiceDTOList.isEmpty()) {
             model.addAttribute("resultFalse", true);
         }
