@@ -67,8 +67,8 @@ li {
 }
 
 .back-button:hover {
-    background-color: #a7a7a7;
-    color: #fff;
+    /*background-color: #a7a7a7;*/
+    color: #a7a7a7;
     border-radius: 5px;
     width: 85px;
 }
@@ -115,7 +115,7 @@ h1 {
     border: none;
     border-bottom: 1px solid;
     border-radius: 0;
-    color: #a7a7a7;
+    color: #343a40;
 }
 
 .heading-box {
@@ -429,3 +429,6 @@ hr {
     color:red;
 }
 
+.input-border-bottom:focus {
+    color: #212529;
+}
