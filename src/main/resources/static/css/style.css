@@ -5,7 +5,7 @@
 
 a {
     text-decoration: none;
-    color: #ffffff;
+    /*color: #ffffff;*/
 }
 
 a:hover {
@@ -67,8 +67,8 @@ li {
 }
 
 .back-button:hover {
-    /*background-color: #a7a7a7;*/
-    color: #a7a7a7;
+    /* background-color: #a7a7a7; */
+    color: #343a40;
     border-radius: 5px;
     width: 85px;
 }
@@ -82,14 +82,14 @@ li {
     outline: none;
 }
 
-.back-button > a {
+back-button, .back-button > a {
     cursor: pointer;
     color: gray;
 }
 
 .back-button:hover > a {
     cursor: pointer;
-    color: white;
+    color: #343a40;
 }
 
 .back-button::before {
