@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Comparator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,7 @@ public class AdminEmailController {
         if (emailDTOList.isEmpty()) {
             model.addAttribute("resultFalse", true);
         }
-        emailDTOList.sort(Comparator.comparing(EmailDTO::getDate));
-        
+        emailDTOList.sort(Comparator.comparing(EmailDTO::getDate).reverse());
         model.addAttribute("emailList", emailService.getAllEmailByUserId(userId));
         return "admin/user/userInfo";
     }
