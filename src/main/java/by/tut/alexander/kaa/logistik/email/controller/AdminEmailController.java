@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -22,12 +21,12 @@ public class AdminEmailController {
 
     @GetMapping("/userInfo")
     public String findEmailByUserId(@RequestParam("userId") Long userId, Model model) {
-        List<EmailDTO> emailDTOList = new ArrayList<>();
+         List<EmailDTO> emailDTOList = emailService.getAllEmailByUserId(userId);
         if (emailDTOList.isEmpty()) {
             model.addAttribute("resultFalse", true);
         }
-        emailDTOList.sort(Comparator.comparing(EmailDTO::getDate));
-        model.addAttribute("emailList", emailService.getAllEmailByUserId(userId));
+        emailDTOList.sort(Comparator.comparing(EmailDTO::getDate).reversed());
+        model.addAttribute("emailList", emailDTOList);
         return "admin/user/userInfo";
     }
 }
