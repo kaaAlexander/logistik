@@ -25,6 +25,7 @@ public class AdminEmailController {
         if (emailDTOList.isEmpty()) {
             model.addAttribute("resultFalse", true);
         }
+        emailDTOList.sort(Comparator.comparing(EmailDTO::getDate).reversed());
         model.addAttribute("emailList", emailService.getAllEmailByUserId(userId));
         return "admin/user/userInfo";
     }
