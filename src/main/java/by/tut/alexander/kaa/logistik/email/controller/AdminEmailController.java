@@ -26,6 +26,7 @@ public class AdminEmailController {
             model.addAttribute("resultFalse", true);
         }
         emailDTOList.sort(Comparator.comparing(EmailDTO::getDate));
+        
         model.addAttribute("emailList", emailService.getAllEmailByUserId(userId));
         return "admin/user/userInfo";
     }
