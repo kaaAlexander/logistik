@@ -87,10 +87,10 @@ public class EmailServiceImpl implements EmailService {
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
         UserDTO userDTO = userService.getUserById(userId);
-        subject = ("Компания : " + userDTO.getCompanyName() + "    \n" + "УНП : " + userDTO.getUnp() +
-                "    \n" + "ФИО : " + userDTO.getName() + "    \n" + emailDTO.getSubject());
-        text = subject + "\n" + "Email : " + userDTO.getEmail() + "\n" + "Телефон : " + userDTO.getPhoneNumber() +
-                "\n" + emailDTO.getText();
+        subject = ("Компания:" + userDTO.getCompanyName() + ",\n" + "УНП:" + userDTO.getUnp() +
+                ",    \n" + "ФИО:" + userDTO.getName() + ",\n" + emailDTO.getSubject());
+        text = subject + ",\n" + "Email:" + userDTO.getEmail() + ",\n" + "Телефон:" + userDTO.getPhoneNumber() +
+                ",\n" +"Сообщение отправителя:" +"\n" + emailDTO.getText();
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
         JavaMailSender mailSender = getServerEmail();
         emailDTO.setCustomerServiceId(customerServiceId);
@@ -136,3 +136,4 @@ public class EmailServiceImpl implements EmailService {
         return emailDTOList;
     }
 }
+
