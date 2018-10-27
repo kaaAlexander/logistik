@@ -53,11 +53,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long save(UserDTO userDTO) {
-        userDTO.setId(null);
-        userDTO.setPassword("");
+        //userDTO.setPassword("")
         userDTO.setRole("ROLE_USER");
         User user = userConverter.convert(userDTO);
-        userRepository.save(user);
+        if(user.getId().equals(null)) {
+            userRepository.save(user);
+        }
+        else {
+            userRepository.update(user);
+        }
         Long userId = user.getId();
         return userId;
     }
