@@ -87,9 +87,9 @@ public class EmailServiceImpl implements EmailService {
         emailDTO.setDate(new Date());
         emailDTO.setUserId(userId);
         UserDTO userDTO = userService.getUserById(userId);
-        subject = ("Компания:" + userDTO.getCompanyName() + ",\n" + "УНП:" + userDTO.getUnp() +
-                ",    \n" + "ФИО:" + userDTO.getName() + ",\n" + emailDTO.getSubject());
-        text = subject + ",\n" + "Email:" + userDTO.getEmail() + ",\n" + "Телефон:" + userDTO.getPhoneNumber() +
+        subject = ("Компания: " + userDTO.getCompanyName() + ",\n" + "УНП:" + userDTO.getUnp() +
+                ",    \n" + "ФИО: " + userDTO.getName() + ",\n" + emailDTO.getSubject());
+        text = subject + ",\n" + "Email: " + userDTO.getEmail() + ",\n" + "Телефон:" + userDTO.getPhoneNumber() +
                 ",\n" +"Сообщение отправителя:" +"\n" + emailDTO.getText();
         CustomerServiceDTO customerServiceDTO = customerService.getCustomerServiceById(customerServiceId);
         JavaMailSender mailSender = getServerEmail();
@@ -101,8 +101,8 @@ public class EmailServiceImpl implements EmailService {
             message.setHeader("Disposition-Notification-To", userDTO.getEmail());
             message.setFrom(emailFrom);
             helper.setTo(customerServiceDTO.getCustomerServiceEmail());
-            helper.setCc(userDTO.getEmail());
-            helper.setCc(emailFrom);
+            String[] emailCc = {userDTO.getEmail(),emailFrom};
+            helper.setCc(emailCc);
             for (MultipartFile file : files) {
                 helper.addAttachment(file.getOriginalFilename(), file);
             }
@@ -136,4 +136,3 @@ public class EmailServiceImpl implements EmailService {
         return emailDTOList;
     }
 }
-
